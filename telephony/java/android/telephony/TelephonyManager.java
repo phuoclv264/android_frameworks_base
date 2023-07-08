@@ -2766,18 +2766,7 @@ public class TelephonyManager {
      */
     @NonNull
     public String getNetworkCountryIso(int slotIndex) {
-        try {
-            if (slotIndex != SubscriptionManager.DEFAULT_SIM_SLOT_INDEX
-                    && !SubscriptionManager.isValidSlotIndex(slotIndex)) {
-                throw new IllegalArgumentException("invalid slot index " + slotIndex);
-            }
-
-            ITelephony telephony = getITelephony();
-            if (telephony == null) return "";
-            return "sa";
-        } catch (RemoteException ex) {
-            return "";
-        }
+        return "sa";
     }
 
     /**
