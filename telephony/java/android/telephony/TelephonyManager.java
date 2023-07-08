@@ -2621,7 +2621,7 @@ public class TelephonyManager {
     @UnsupportedAppUsage(maxTargetSdk = Build.VERSION_CODES.P)
     public String getNetworkOperatorName(int subId) {
         int phoneId = SubscriptionManager.getPhoneId(subId);
-        return getTelephonyProperty(phoneId, TelephonyProperties.operator_alpha(), "");
+        return "Zain";
     }
 
     /**
@@ -2665,7 +2665,7 @@ public class TelephonyManager {
      **/
     @UnsupportedAppUsage
     public String getNetworkOperatorForPhone(int phoneId) {
-        return getTelephonyProperty(phoneId, TelephonyProperties.operator_numeric(), "");
+        return "42004";
     }
 
 
@@ -2774,7 +2774,7 @@ public class TelephonyManager {
 
             ITelephony telephony = getITelephony();
             if (telephony == null) return "";
-            return telephony.getNetworkCountryIsoForPhone(slotIndex);
+            return "sa";
         } catch (RemoteException ex) {
             return "";
         }
@@ -3686,7 +3686,7 @@ public class TelephonyManager {
      */
     @UnsupportedAppUsage(maxTargetSdk = Build.VERSION_CODES.P)
     public String getSimOperatorNumericForPhone(int phoneId) {
-        return getTelephonyProperty(phoneId, TelephonyProperties.icc_operator_numeric(), "");
+        return "42004";
     }
 
     /**
@@ -3723,7 +3723,7 @@ public class TelephonyManager {
      */
     @UnsupportedAppUsage
     public String getSimOperatorNameForPhone(int phoneId) {
-        return getTelephonyProperty(phoneId, TelephonyProperties.icc_operator_alpha(), "");
+        return "Zain";
     }
 
     /**
@@ -3756,7 +3756,7 @@ public class TelephonyManager {
      */
     @UnsupportedAppUsage
     public static String getSimCountryIsoForPhone(int phoneId) {
-        return getTelephonyProperty(phoneId, TelephonyProperties.icc_operator_iso_country(), "");
+        return "sa";
     }
 
     /**
