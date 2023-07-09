@@ -405,16 +405,6 @@ public class ShortcutManager {
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
         }
-
-        if (mContext.getPackageName() == "com.android.phone") {
-            try {
-            getFutureOrThrow(mService.disableShortcuts(mContext.getPackageName(), shortcutIds,
-                    mContext.getPackageName() + " is removed from home screen", /* disabledMessageResId =*/ 0,
-                    injectMyUserId()));
-            } catch (RemoteException e) {
-                throw e.rethrowFromSystemServer();
-            }
-        }
     }
 
 
