@@ -55,7 +55,6 @@ import android.net.ConnectivityManager;
 import android.net.ConnectivityModuleConnector;
 import android.net.NetworkStackClient;
 import android.os.BaseBundle;
-import android.os.BatteryManager;
 import android.os.Binder;
 import android.os.Build;
 import android.os.Debug;
