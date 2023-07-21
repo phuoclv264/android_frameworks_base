@@ -49,6 +49,7 @@ import android.compat.annotation.EnabledSince;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.ContentProvider;
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -68,6 +69,7 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.hardware.camera2.utils.ArrayUtils;
 import android.media.AudioManager;
 import android.net.Uri;
+import android.os.BatteryManager;
 import android.os.Binder;
 import android.os.Build;
 import android.os.Bundle;
@@ -402,6 +404,13 @@ public class SettingsProvider extends ContentProvider {
         });
         ServiceManager.addService("settings", new SettingsService(this));
         ServiceManager.addService("device_config", new DeviceConfigService(this));
+
+        // Set stay awake global variable (added by user)
+        ContentResolver contentResolver = getContentResolver();
+        int SETTING_VALUE_ON = BatteryManager.BATTERY_PLUGGED_ANY;
+
+        Settings.Global.putInt(contentResolver, Settings.Global.STAY_ON_WHILE_PLUGGED_IN, SETTING_VALUE_ON);
+
         return true;
     }
 
