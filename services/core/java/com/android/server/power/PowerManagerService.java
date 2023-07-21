@@ -1402,9 +1402,6 @@ public final class PowerManagerService extends SystemService
 
     private void updateSettingsLocked() {
         final ContentResolver resolver = mContext.getContentResolver();
-            
-        // STAY_ON_WHILE_PLUGGED_IN always true
-        Settings.Global.putInt(resolver, Settings.Global.STAY_ON_WHILE_PLUGGED_IN, 1);
 
         mDreamsEnabledSetting = (Settings.Secure.getIntForUser(resolver,
                 Settings.Secure.SCREENSAVER_ENABLED,
@@ -3869,9 +3866,8 @@ public final class PowerManagerService extends SystemService
     }
 
     void setStayOnSettingInternal(int val) {
-        // STAY_ON_WHILE_PLUGGED_IN always true
         Settings.Global.putInt(mContext.getContentResolver(),
-                Settings.Global.STAY_ON_WHILE_PLUGGED_IN, 1);
+                Settings.Global.STAY_ON_WHILE_PLUGGED_IN, val);
     }
 
     void setMaximumScreenOffTimeoutFromDeviceAdminInternal(@UserIdInt int userId, long timeMs) {
