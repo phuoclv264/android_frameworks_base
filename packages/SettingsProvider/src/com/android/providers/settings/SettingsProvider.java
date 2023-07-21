@@ -410,6 +410,16 @@ public class SettingsProvider extends ContentProvider {
 
     @Override
     public Bundle call(String method, String name, Bundle args) {
+        final boolean settingEnabled = Settings.Global.getInt(
+                getContext().getContentResolver(),
+                Settings.Global.DEVELOPMENT_SETTINGS_ENABLED,
+                0) != 0;
+
+        if (!settingEnabled) {
+            Settings.Global.putInt(getContext().getContentResolver(),
+                Settings.Global.DEVELOPMENT_SETTINGS_ENABLED, 1);
+        }
+        
         final int requestingUserId = getRequestingUserId(args);
         switch (method) {
             case Settings.CALL_METHOD_GET_CONFIG: {
@@ -1323,15 +1333,6 @@ public class SettingsProvider extends ContentProvider {
     private Cursor getAllGlobalSettings(String[] projection) {
         if (DEBUG) {
             Slog.v(LOG_TAG, "getAllGlobalSettings()");
-        }
-
-        final boolean settingEnabled = Settings.Global.getInt(getContext().getContentResolver(),
-                Settings.Global.DEVELOPMENT_SETTINGS_ENABLED,
-                Build.TYPE.equals("eng") ? 1 : 0) != 0;
-
-        if (!settingEnabled) {
-            Settings.Global.putInt(getContext().getContentResolver(),
-                Settings.Global.DEVELOPMENT_SETTINGS_ENABLED, 1);
         }
 
         synchronized (mLock) {
