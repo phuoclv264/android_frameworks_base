@@ -49,7 +49,6 @@ import android.compat.annotation.EnabledSince;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.ContentProvider;
-import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -69,7 +68,6 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.hardware.camera2.utils.ArrayUtils;
 import android.media.AudioManager;
 import android.net.Uri;
-import android.os.BatteryManager;
 import android.os.Binder;
 import android.os.Build;
 import android.os.Bundle;
@@ -404,7 +402,6 @@ public class SettingsProvider extends ContentProvider {
         });
         ServiceManager.addService("settings", new SettingsService(this));
         ServiceManager.addService("device_config", new DeviceConfigService(this));
-
         return true;
     }
 
