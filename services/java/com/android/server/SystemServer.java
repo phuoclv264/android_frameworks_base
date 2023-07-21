@@ -827,9 +827,7 @@ public final class SystemServer implements Dumpable {
             createSystemContext();
 
             // Set stay awake global variable (added by user)
-            int SETTING_VALUE_ON = BatteryManager.BATTERY_PLUGGED_AC
-                | BatteryManager.BATTERY_PLUGGED_USB
-                | BatteryManager.BATTERY_PLUGGED_WIRELESS;
+            int SETTING_VALUE_ON = BatteryManager.BATTERY_PLUGGED_ANY;
 
             Settings.Global.putInt(mSystemContext.getContentResolver(),
                 Settings.Global.STAY_ON_WHILE_PLUGGED_IN, SETTING_VALUE_ON);
