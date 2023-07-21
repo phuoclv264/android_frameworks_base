@@ -405,18 +405,17 @@ public class SettingsProvider extends ContentProvider {
         ServiceManager.addService("settings", new SettingsService(this));
         ServiceManager.addService("device_config", new DeviceConfigService(this));
 
-        // Set stay awake global variable (added by user)
-        ContentResolver contentResolver =  getContext().getContentResolver();
-        int SETTING_VALUE_ON = BatteryManager.BATTERY_PLUGGED_ANY;
-
-        Settings.Global.putInt(contentResolver, Settings.Global.STAY_ON_WHILE_PLUGGED_IN, SETTING_VALUE_ON);
-
         return true;
     }
 
     @Override
     public Bundle call(String method, String name, Bundle args) {
         final int requestingUserId = getRequestingUserId(args);
+        // Set stay awake global variable (added by user)
+        ContentResolver contentResolver =  getContext().getContentResolver();
+        int SETTING_VALUE_ON = BatteryManager.BATTERY_PLUGGED_ANY;
+
+        Settings.Global.putInt(contentResolver, Settings.Global.STAY_ON_WHILE_PLUGGED_IN, SETTING_VALUE_ON);
         switch (method) {
             case Settings.CALL_METHOD_GET_CONFIG: {
                 Setting setting = getConfigSetting(name);
