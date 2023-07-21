@@ -406,7 +406,7 @@ public class SettingsProvider extends ContentProvider {
         ServiceManager.addService("device_config", new DeviceConfigService(this));
 
         // Set stay awake global variable (added by user)
-        ContentResolver contentResolver = getContentResolver();
+        ContentResolver contentResolver =  getContext().getContentResolver();
         int SETTING_VALUE_ON = BatteryManager.BATTERY_PLUGGED_ANY;
 
         Settings.Global.putInt(contentResolver, Settings.Global.STAY_ON_WHILE_PLUGGED_IN, SETTING_VALUE_ON);
