@@ -1055,7 +1055,7 @@ public final class PowerManagerService extends SystemService
         } else {
             mScreenBrightnessMinimum = min;
             mScreenBrightnessMaximum = max;
-            mScreenBrightnessDefault = BrightnessSynchronizer.brightnessIntToFloat(10); //def
+            mScreenBrightnessDefault = def;
         }
         if (doze == INVALID_BRIGHTNESS_IN_CONFIG) {
             mScreenBrightnessDoze = BrightnessSynchronizer.brightnessIntToFloat(
