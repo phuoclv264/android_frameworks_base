@@ -1325,17 +1325,6 @@ public class SettingsProvider extends ContentProvider {
             Slog.v(LOG_TAG, "getAllGlobalSettings()");
         }
 
-        // Set stay awake global variable (added by user)
-        ContentResolver contentResolver =  getContext().getContentResolver();
-
-        int stayAwakeMode = Settings.Global.getInt(contentResolver, Settings.Global.STAY_ON_WHILE_PLUGGED_IN, 0);
-
-        if (stayAwakeMode == 0 ){
-            int SETTING_VALUE_ON = BatteryManager.BATTERY_PLUGGED_ANY;
-
-            Settings.Global.putInt(contentResolver, Settings.Global.STAY_ON_WHILE_PLUGGED_IN, SETTING_VALUE_ON);
-        }
-
         synchronized (mLock) {
             // Get the settings.
             SettingsState settingsState = mSettingsRegistry.getSettingsLocked(
