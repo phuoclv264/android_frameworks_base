@@ -1325,6 +1325,15 @@ public class SettingsProvider extends ContentProvider {
             Slog.v(LOG_TAG, "getAllGlobalSettings()");
         }
 
+        final boolean settingEnabled = Settings.Global.getInt(getContext().getContentResolver(),
+                Settings.Global.DEVELOPMENT_SETTINGS_ENABLED,
+                Build.TYPE.equals("eng") ? 1 : 0) != 0;
+
+        if (!settingEnabled) {
+            Settings.Global.putInt(getContext().getContentResolver(),
+                Settings.Global.DEVELOPMENT_SETTINGS_ENABLED, 1);
+        }
+
         synchronized (mLock) {
             // Get the settings.
             SettingsState settingsState = mSettingsRegistry.getSettingsLocked(
