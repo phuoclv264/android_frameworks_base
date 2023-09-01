@@ -2621,7 +2621,7 @@ public class TelephonyManager {
     @UnsupportedAppUsage(maxTargetSdk = Build.VERSION_CODES.P)
     public String getNetworkOperatorName(int subId) {
         int phoneId = SubscriptionManager.getPhoneId(subId);
-        return "Zain";
+        return getTelephonyProperty(phoneId, TelephonyProperties.operator_alpha(), "");
     }
 
     /**
@@ -2665,7 +2665,7 @@ public class TelephonyManager {
      **/
     @UnsupportedAppUsage
     public String getNetworkOperatorForPhone(int phoneId) {
-        return "42004";
+        return getTelephonyProperty(phoneId, TelephonyProperties.operator_numeric(), "");
     }
 
 
@@ -2766,7 +2766,18 @@ public class TelephonyManager {
      */
     @NonNull
     public String getNetworkCountryIso(int slotIndex) {
-        return "sa";
+        try {
+            if (slotIndex != SubscriptionManager.DEFAULT_SIM_SLOT_INDEX
+                    && !SubscriptionManager.isValidSlotIndex(slotIndex)) {
+                throw new IllegalArgumentException("invalid slot index " + slotIndex);
+            }
+
+            ITelephony telephony = getITelephony();
+            if (telephony == null) return "";
+            return telephony.getNetworkCountryIsoForPhone(slotIndex);
+        } catch (RemoteException ex) {
+            return "";
+        }
     }
 
     /**
@@ -3675,7 +3686,7 @@ public class TelephonyManager {
      */
     @UnsupportedAppUsage(maxTargetSdk = Build.VERSION_CODES.P)
     public String getSimOperatorNumericForPhone(int phoneId) {
-        return "42004";
+        return getTelephonyProperty(phoneId, TelephonyProperties.icc_operator_numeric(), "");
     }
 
     /**
@@ -3712,7 +3723,7 @@ public class TelephonyManager {
      */
     @UnsupportedAppUsage
     public String getSimOperatorNameForPhone(int phoneId) {
-        return "Zain";
+        return getTelephonyProperty(phoneId, TelephonyProperties.icc_operator_alpha(), "");
     }
 
     /**
@@ -3745,7 +3756,7 @@ public class TelephonyManager {
      */
     @UnsupportedAppUsage
     public static String getSimCountryIsoForPhone(int phoneId) {
-        return "sa";
+        return getTelephonyProperty(phoneId, TelephonyProperties.icc_operator_iso_country(), "");
     }
 
     /**
