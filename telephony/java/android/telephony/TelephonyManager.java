@@ -2665,7 +2665,7 @@ public class TelephonyManager {
      **/
     @UnsupportedAppUsage
     public String getNetworkOperatorForPhone(int phoneId) {
-        return "42004";
+        return getTelephonyProperty(phoneId, TelephonyProperties.operator_numeric(), "");
     }
 
 
