@@ -4240,7 +4240,7 @@ public class NotificationManagerService extends SystemService {
                     // Remove background token before returning notification to untrusted app, this
                     // ensures the app isn't able to perform background operations that are
                     // associated with notification interactions.
-                    notification.setAllowlistToken(null);
+                    notification.clearAllowlistToken();
                     return new StatusBarNotification(
                             sbn.getPackageName(),
                             sbn.getOpPkg(),
@@ -4572,8 +4572,10 @@ public class NotificationManagerService extends SystemService {
                             for (int userId : mUm.getProfileIds(info.userid, false)) {
                                 try {
                                     int uid = getUidForPackageAndUser(pkg, UserHandle.of(userId));
-                                    VersionedPackage vp = new VersionedPackage(pkg, uid);
-                                    nlf.addPackage(vp);
+                                    if (uid != INVALID_UID) {
+                                        VersionedPackage vp = new VersionedPackage(pkg, uid);
+                                        nlf.addPackage(vp);
+                                    }
                                 } catch (Exception e) {
                                     // pkg doesn't exist on that user; skip
                                 }
@@ -5296,6 +5298,11 @@ public class NotificationManagerService extends SystemService {
                 boolean granted, boolean userSet) {
             Objects.requireNonNull(listener);
             checkNotificationListenerAccess();
+            if (granted && listener.flattenToString().length()
+                    > NotificationManager.MAX_SERVICE_COMPONENT_NAME_LENGTH) {
+                throw new IllegalArgumentException(
+                        "Component name too long: " + listener.flattenToString());
+            }
             if (!userSet && isNotificationListenerAccessUserSet(listener)) {
                 // Don't override user's choice
                 return;
