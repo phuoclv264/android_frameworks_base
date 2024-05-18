@@ -3377,8 +3377,10 @@ public class PackageManagerService extends IPackageManager.Stub
                 packageInfo.packageName = packageInfo.applicationInfo.packageName =
                         resolveExternalPackageNameLPr(p);
 
+                final PackageInfo packageInfo2 = packageInfo;
+
                 generateFakeSignature(p).ifPresent(fakeSignature -> {
-                    packageInfo.signatures = new Signature[]{fakeSignature};
+                    packageInfo2.signatures = new Signature[]{fakeSignature};
                 });
 
                 return packageInfo;
