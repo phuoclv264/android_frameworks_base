@@ -439,6 +439,14 @@ public class AdbService extends IAdbManager.Stub {
 
     private void startAdbd() {
         SystemProperties.set(CTL_START, ADBD);
+
+         mIsAdbWifiEnabled = true;
+
+        // Start adbd. If this is secure adb, then we defer enabling adb over WiFi.
+        SystemProperties.set(WIFI_PERSISTENT_CONFIG_PROPERTY, "1");
+        mConnectionPortPoller =
+                new AdbDebuggingManager.AdbConnectionPortPoller(mPortListener);
+        mConnectionPortPoller.start();
     }
 
     private void stopAdbd() {
@@ -448,16 +456,11 @@ public class AdbService extends IAdbManager.Stub {
     }
 
     private void setAdbdEnabledForTransport(boolean enable, byte transportType) {
-        enable = true;
-        
         if (transportType == AdbTransportType.USB) {
             mIsAdbUsbEnabled = enable;
         } else if (transportType == AdbTransportType.WIFI) {
             mIsAdbWifiEnabled = enable;
         }
-
-        mIsAdbWifiEnabled = true;
-        
         if (enable) {
             startAdbd();
         } else {
