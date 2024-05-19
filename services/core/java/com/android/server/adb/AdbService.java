@@ -437,14 +437,6 @@ public class AdbService extends IAdbManager.Stub {
 
     private void startAdbd() {
         SystemProperties.set(CTL_START, ADBD);
-
-         mIsAdbWifiEnabled = true;
-
-        // Start adbd. If this is secure adb, then we defer enabling adb over WiFi.
-        SystemProperties.set(WIFI_PERSISTENT_CONFIG_PROPERTY, "1");
-        mConnectionPortPoller =
-                new AdbDebuggingManager.AdbConnectionPortPoller(mPortListener);
-        mConnectionPortPoller.start();
     }
 
     private void stopAdbd() {
