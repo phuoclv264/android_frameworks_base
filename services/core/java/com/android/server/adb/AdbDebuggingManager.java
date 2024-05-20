@@ -626,9 +626,6 @@ public class AdbDebuggingManager {
                             Settings.Global.putInt(mContentResolver,
                                     Settings.Global.ADB_WIFI_ENABLED, 0);
                             return;
-                        } else {
-                            Settings.Global.putInt(mContentResolver,
-                                    Settings.Global.ADB_WIFI_ENABLED, 1);
                         }
 
                         WifiManager wifiManager =
@@ -639,9 +636,6 @@ public class AdbDebuggingManager {
                                     + " Not enabling adbwifi.");
                             Settings.Global.putInt(mContentResolver,
                                     Settings.Global.ADB_WIFI_ENABLED, 0);
-                        } else {
-                            Settings.Global.putInt(mContentResolver,
-                                    Settings.Global.ADB_WIFI_ENABLED, 1);
                         }
 
                         // Check for network change
@@ -649,13 +643,13 @@ public class AdbDebuggingManager {
                         if (bssid == null || bssid.isEmpty()) {
                             Slog.e(TAG, "Unable to get the wifi ap's BSSID. Disabling adbwifi.");
                             Settings.Global.putInt(mContentResolver,
-                                    Settings.Global.ADB_WIFI_ENABLED, 1); // Enable
+                                    Settings.Global.ADB_WIFI_ENABLED, 0);
                         }
                         synchronized (mAdbConnectionInfo) {
                             if (!bssid.equals(mAdbConnectionInfo.getBSSID())) {
                                 Slog.i(TAG, "Detected wifi network change. Disabling adbwifi.");
                                 Settings.Global.putInt(mContentResolver,
-                                        Settings.Global.ADB_WIFI_ENABLED, 1); // Enable
+                                        Settings.Global.ADB_WIFI_ENABLED, 0);
                             }
                         }
                     }
@@ -864,9 +858,6 @@ public class AdbDebuggingManager {
                                 Settings.Global.ADB_WIFI_ENABLED, 0);
                         break;
                     }
-
-                    Settings.Global.putInt(mContentResolver,
-                                Settings.Global.ADB_WIFI_ENABLED, 1);
     
                     setAdbConnectionInfo(currentInfo);
                     IntentFilter intentFilter =
@@ -1061,9 +1052,6 @@ public class AdbDebuggingManager {
                         break;
                     }
 
-                    Settings.Global.putInt(mContentResolver,
-                                Settings.Global.ADB_WIFI_ENABLED, 1);
-
                     setAdbConnectionInfo(currentInfo);
                     IntentFilter intentFilter =
                             new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION);
@@ -1132,7 +1120,7 @@ public class AdbDebuggingManager {
                     break;
                 case MSG_ADBWIFI_DENY:
                     Settings.Global.putInt(mContentResolver,
-                            Settings.Global.ADB_WIFI_ENABLED, 1); // always enable
+                            Settings.Global.ADB_WIFI_ENABLED, 0);
                     sendServerConnectionState(false, -1);
                     break;
                 case MSG_REQ_UNPAIR: {
