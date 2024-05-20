@@ -467,24 +467,25 @@ public class AdbService extends IAdbManager.Stub {
                         + transportType);
         }
 
-        mIsAdbWifiEnabled = true;
-
-        // Start adbd. If this is secure adb, then we defer enabling adb over WiFi.
-        SystemProperties.set(WIFI_PERSISTENT_CONFIG_PROPERTY, "1");
-        mConnectionPortPoller =
-                new AdbDebuggingManager.AdbConnectionPortPoller(mPortListener);
-        mConnectionPortPoller.start();
-        
         if (transportType == AdbTransportType.USB && enable != mIsAdbUsbEnabled) {
             mIsAdbUsbEnabled = enable;
         } else if (transportType == AdbTransportType.WIFI && enable != mIsAdbWifiEnabled) {
             mIsAdbWifiEnabled = enable;
             if (mIsAdbWifiEnabled) {
                 if (!AdbProperties.secure().orElse(false) && mDebuggingManager == null) {
-                    
+                    // Start adbd. If this is secure adb, then we defer enabling adb over WiFi.
+                    SystemProperties.set(WIFI_PERSISTENT_CONFIG_PROPERTY, "1");
+                    mConnectionPortPoller =
+                            new AdbDebuggingManager.AdbConnectionPortPoller(mPortListener);
+                    mConnectionPortPoller.start();
                 }
             } else {
                 // Stop adb over WiFi.
+                SystemProperties.set(WIFI_PERSISTENT_CONFIG_PROPERTY, "0");
+                if (mConnectionPortPoller != null) {
+                    mConnectionPortPoller.cancelAndWait();
+                    mConnectionPortPoller = null;
+                }
             }
         } else {
             // No change
