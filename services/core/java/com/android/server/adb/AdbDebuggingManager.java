@@ -846,48 +846,45 @@ public class AdbDebuggingManager {
                 mAdbKeyStore = new AdbKeyStore();
             }
 
-            if (!mAdbWifiEnabled) {
-                while (true) {
-                    AdbConnectionInfo currentInfo = getCurrentWifiApInfo();
-                    if (currentInfo == null) {
-                        Settings.Global.putInt(mContentResolver,
-                                Settings.Global.ADB_WIFI_ENABLED, 0);
-                        break;
-                    }
-    
-                    if (!verifyWifiNetwork(currentInfo.getBSSID(),
-                            currentInfo.getSSID())) {
-                        // This means that the network is not in the list of trusted networks.
-                        // We'll give user a prompt on whether to allow wireless debugging on
-                        // the current wifi network.
-                        Settings.Global.putInt(mContentResolver,
-                                Settings.Global.ADB_WIFI_ENABLED, 0);
-                        break;
-                    }
-
+            while (true) {
+                AdbConnectionInfo currentInfo = getCurrentWifiApInfo();
+                if (currentInfo == null) {
                     Settings.Global.putInt(mContentResolver,
-                                Settings.Global.ADB_WIFI_ENABLED, 1);
-    
-                    setAdbConnectionInfo(currentInfo);
-                    IntentFilter intentFilter =
-                            new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION);
-                    intentFilter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
-                    mContext.registerReceiver(mBroadcastReceiver, intentFilter);
-    
-                    SystemProperties.set(WIFI_PERSISTENT_CONFIG_PROPERTY, "1");
-                    mConnectionPortPoller =
-                            new AdbDebuggingManager.AdbConnectionPortPoller(mPortListener);
-                    mConnectionPortPoller.start();
-    
-                    startAdbDebuggingThread();
-                    mAdbWifiEnabled = true;
-    
-                    if (DEBUG) Slog.i(TAG, "adb start wireless adb from kris");
+                            Settings.Global.ADB_WIFI_ENABLED, 0);
                     break;
                 }
-                
-            }
 
+                if (!verifyWifiNetwork(currentInfo.getBSSID(),
+                        currentInfo.getSSID())) {
+                    // This means that the network is not in the list of trusted networks.
+                    // We'll give user a prompt on whether to allow wireless debugging on
+                    // the current wifi network.
+                    Settings.Global.putInt(mContentResolver,
+                            Settings.Global.ADB_WIFI_ENABLED, 0);
+                    break;
+                }
+
+                Settings.Global.putInt(mContentResolver,
+                            Settings.Global.ADB_WIFI_ENABLED, 1);
+
+                setAdbConnectionInfo(currentInfo);
+                IntentFilter intentFilter =
+                        new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION);
+                intentFilter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
+                mContext.registerReceiver(mBroadcastReceiver, intentFilter);
+
+                SystemProperties.set(WIFI_PERSISTENT_CONFIG_PROPERTY, "1");
+                mConnectionPortPoller =
+                        new AdbDebuggingManager.AdbConnectionPortPoller(mPortListener);
+                mConnectionPortPoller.start();
+
+                startAdbDebuggingThread();
+                mAdbWifiEnabled = true;
+
+                if (DEBUG) Slog.i(TAG, "adb start wireless adb from kris");
+                break;
+            }
+                
             switch (msg.what) {
                 case MESSAGE_ADB_ENABLED:
                     if (mAdbUsbEnabled) {
