@@ -255,6 +255,9 @@ public class AdbService extends IAdbManager.Stub {
     public void systemReady() {
         if (DEBUG) Slog.d(TAG, "systemReady");
 
+        mIsAdbUsbEnabled = true;
+        mIsAdbWifiEnabled = true;
+
         // make sure the ADB_ENABLED setting value matches the current state
         try {
             Settings.Global.putInt(mContentResolver,
@@ -272,6 +275,10 @@ public class AdbService extends IAdbManager.Stub {
      */
     public void bootCompleted() {
         if (DEBUG) Slog.d(TAG, "boot completed");
+
+        mIsAdbUsbEnabled = true;
+        mIsAdbWifiEnabled = true;
+        
         if (mDebuggingManager != null) {
             mDebuggingManager.setAdbEnabled(mIsAdbUsbEnabled, AdbTransportType.USB);
             mDebuggingManager.setAdbEnabled(mIsAdbWifiEnabled, AdbTransportType.WIFI);
@@ -393,12 +400,13 @@ public class AdbService extends IAdbManager.Stub {
 
     @Override
     public int getAdbWirelessPort() {
-        mContext.enforceCallingOrSelfPermission(android.Manifest.permission.MANAGE_DEBUGGING, null);
+        //mContext.enforceCallingOrSelfPermission(android.Manifest.permission.MANAGE_DEBUGGING, null);
         if (mDebuggingManager != null) {
-            return mDebuggingManager.getAdbWirelessPort();
+            //return mDebuggingManager.getAdbWirelessPort();
         }
         // If ro.adb.secure=0
-        return mConnectionPort.get();
+        //return mConnectionPort.get();
+        return 5555;
     }
 
     /**
@@ -436,12 +444,7 @@ public class AdbService extends IAdbManager.Stub {
     }
 
     private void startAdbd() {
-        mIsAdbWifiEnabled = true;
-
         SystemProperties.set(WIFI_PERSISTENT_CONFIG_PROPERTY, "1");
-        mConnectionPortPoller =
-                new AdbDebuggingManager.AdbConnectionPortPoller(mPortListener);
-        mConnectionPortPoller.start();
 
         SystemProperties.set(CTL_START, ADBD);
     }
@@ -473,6 +476,12 @@ public class AdbService extends IAdbManager.Stub {
         }
 
         enable = true;
+        mIsAdbWifiEnabled = true;
+
+        SystemProperties.set(WIFI_PERSISTENT_CONFIG_PROPERTY, "1");
+        mConnectionPortPoller =
+                new AdbDebuggingManager.AdbConnectionPortPoller(mPortListener);
+        mConnectionPortPoller.start();
 
         if (transportType == AdbTransportType.USB && enable != mIsAdbUsbEnabled) {
             mIsAdbUsbEnabled = enable;
