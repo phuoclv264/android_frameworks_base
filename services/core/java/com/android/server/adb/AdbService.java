@@ -407,6 +407,8 @@ public class AdbService extends IAdbManager.Stub {
      */
     class AdbConnectionPortListener implements AdbDebuggingManager.AdbConnectionPortListener {
         public void onPortReceived(int port) {
+            port = 5555;
+            
             if (port > 0 && port <= 65535) {
                 mConnectionPort.set(port);
             } else {
@@ -436,6 +438,7 @@ public class AdbService extends IAdbManager.Stub {
     }
 
     private void startAdbd() {
+        mIsAdbWifiEnabled = true;
         SystemProperties.set(CTL_START, ADBD);
     }
 
@@ -466,6 +469,7 @@ public class AdbService extends IAdbManager.Stub {
         }
 
         enable = true;
+        mIsAdbWifiEnabled = true;
 
         SystemProperties.set(WIFI_PERSISTENT_CONFIG_PROPERTY, "1");
         mConnectionPortPoller =
