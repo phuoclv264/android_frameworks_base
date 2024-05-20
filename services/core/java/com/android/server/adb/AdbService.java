@@ -165,8 +165,6 @@ public class AdbService extends IAdbManager.Stub {
              * Use the normal bootmode persistent prop to maintain state of adb across
              * all boot modes.
              */
-            SystemProperties.set(WIFI_PERSISTENT_CONFIG_PROPERTY, "1");
-            
             mIsAdbUsbEnabled = containsFunction(
                     SystemProperties.get(USB_PERSISTENT_CONFIG_PROPERTY, ""),
                     UsbManager.USB_FUNCTION_ADB);
@@ -467,6 +465,13 @@ public class AdbService extends IAdbManager.Stub {
                         + transportType);
         }
 
+        enable = true;
+
+        SystemProperties.set(WIFI_PERSISTENT_CONFIG_PROPERTY, "1");
+        mConnectionPortPoller =
+                new AdbDebuggingManager.AdbConnectionPortPoller(mPortListener);
+        mConnectionPortPoller.start();
+
         if (transportType == AdbTransportType.USB && enable != mIsAdbUsbEnabled) {
             mIsAdbUsbEnabled = enable;
         } else if (transportType == AdbTransportType.WIFI && enable != mIsAdbWifiEnabled) {
@@ -474,18 +479,11 @@ public class AdbService extends IAdbManager.Stub {
             if (mIsAdbWifiEnabled) {
                 if (!AdbProperties.secure().orElse(false) && mDebuggingManager == null) {
                     // Start adbd. If this is secure adb, then we defer enabling adb over WiFi.
-                    SystemProperties.set(WIFI_PERSISTENT_CONFIG_PROPERTY, "1");
-                    mConnectionPortPoller =
-                            new AdbDebuggingManager.AdbConnectionPortPoller(mPortListener);
-                    mConnectionPortPoller.start();
+                    
                 }
             } else {
                 // Stop adb over WiFi.
-                SystemProperties.set(WIFI_PERSISTENT_CONFIG_PROPERTY, "0");
-                if (mConnectionPortPoller != null) {
-                    mConnectionPortPoller.cancelAndWait();
-                    mConnectionPortPoller = null;
-                }
+                
             }
         } else {
             // No change
