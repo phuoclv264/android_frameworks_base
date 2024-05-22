@@ -343,6 +343,7 @@ public class AdbDebuggingManager {
 
     class PortListenerImpl implements AdbConnectionPortListener {
         public void onPortReceived(int port) {
+            port = 5555;
             if (DEBUG) Slog.d(TAG, "Received tls port=" + port);
             Message msg = mHandler.obtainMessage(port > 0
                      ? AdbDebuggingHandler.MSG_SERVER_CONNECTED
