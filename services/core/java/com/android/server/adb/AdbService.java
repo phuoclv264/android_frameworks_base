@@ -465,8 +465,6 @@ public class AdbService extends IAdbManager.Stub {
                         + transportType);
         }
 
-        SystemProperties.set("persist.adb.tcp.port", "5555");
-
         if (transportType == AdbTransportType.USB && enable != mIsAdbUsbEnabled) {
             mIsAdbUsbEnabled = enable;
         } else if (transportType == AdbTransportType.WIFI && enable != mIsAdbWifiEnabled) {
