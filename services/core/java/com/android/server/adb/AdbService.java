@@ -272,7 +272,6 @@ public class AdbService extends IAdbManager.Stub {
      */
     public void bootCompleted() {
         if (DEBUG) Slog.d(TAG, "boot completed");
-
         if (mDebuggingManager != null) {
             mDebuggingManager.setAdbEnabled(mIsAdbUsbEnabled, AdbTransportType.USB);
             mDebuggingManager.setAdbEnabled(mIsAdbWifiEnabled, AdbTransportType.WIFI);
