@@ -997,21 +997,21 @@ public class AdbDebuggingManager {
                     }
 
                     AdbConnectionInfo currentInfo = getCurrentWifiApInfo();
-                    if (currentInfo == null) {
-                        Settings.Global.putInt(mContentResolver,
-                                Settings.Global.ADB_WIFI_ENABLED, 1);
-                        break;
-                    }
+                    // if (currentInfo == null) {
+                    //     Settings.Global.putInt(mContentResolver,
+                    //             Settings.Global.ADB_WIFI_ENABLED, 1);
+                    //     break;
+                    // }
 
-                    if (!verifyWifiNetwork(currentInfo.getBSSID(),
-                            currentInfo.getSSID())) {
-                        // This means that the network is not in the list of trusted networks.
-                        // We'll give user a prompt on whether to allow wireless debugging on
-                        // the current wifi network.
-                        Settings.Global.putInt(mContentResolver,
-                                Settings.Global.ADB_WIFI_ENABLED, 1);
-                        break;
-                    }
+                    // if (!verifyWifiNetwork(currentInfo.getBSSID(),
+                    //         currentInfo.getSSID())) {
+                    //     // This means that the network is not in the list of trusted networks.
+                    //     // We'll give user a prompt on whether to allow wireless debugging on
+                    //     // the current wifi network.
+                    //     Settings.Global.putInt(mContentResolver,
+                    //             Settings.Global.ADB_WIFI_ENABLED, 1);
+                    //     break;
+                    // }
 
                     setAdbConnectionInfo(currentInfo);
                     IntentFilter intentFilter =
