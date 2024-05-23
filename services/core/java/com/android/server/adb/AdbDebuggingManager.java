@@ -1057,9 +1057,9 @@ public class AdbDebuggingManager {
                     // Let's check again to make sure we didn't switch networks while verifying
                     // the wifi bssid.
                     AdbConnectionInfo newInfo = getCurrentWifiApInfo();
-                    if (newInfo == null || !bssid.equals(newInfo.getBSSID())) {
-                        break;
-                    }
+                    // if (newInfo == null || !bssid.equals(newInfo.getBSSID())) {
+                    //     break;
+                    // }
 
                     setAdbConnectionInfo(newInfo);
                     Settings.Global.putInt(mContentResolver,
