@@ -1081,13 +1081,8 @@ public class AdbDebuggingManager {
                     break;
                 case MSG_ADBWIFI_DENY:
                     Settings.Global.putInt(mContentResolver,
-<<<<<<< HEAD
-                            Settings.Global.ADB_WIFI_ENABLED, 1);
-                    // sendServerConnectionState(false, -1);
-=======
                             Settings.Global.ADB_WIFI_ENABLED, 0);
                     sendServerConnectionState(false, -1);
->>>>>>> parent of 8b947689d93a (Update AdbDebuggingManager.java)
                     break;
                 case MSG_REQ_UNPAIR: {
                     String fingerprint = (String) msg.obj;
