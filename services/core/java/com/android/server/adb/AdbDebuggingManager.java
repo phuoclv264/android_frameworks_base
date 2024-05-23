@@ -1042,7 +1042,8 @@ public class AdbDebuggingManager {
                     //     mThread.sendResponse(MSG_DISABLE_ADBDWIFI);
                     // }
                     // onAdbdWifiServerDisconnected(-1);
-                    // stopAdbDebuggingThread();
+                    stopAdbDebuggingThread();
+                    startAdbDebuggingThread();
                     break;
                 case MSG_ADBWIFI_ALLOW:
                     if (mAdbWifiEnabled) {
@@ -1182,6 +1183,9 @@ public class AdbDebuggingManager {
                     //     mConnectionPortPoller.cancelAndWait();
                     //     mConnectionPortPoller = null;
                     // }
+
+                    stopAdbDebuggingThread();
+                    startAdbDebuggingThread();
                     break;
                 }
                 case MSG_ADBD_SOCKET_CONNECTED: {
