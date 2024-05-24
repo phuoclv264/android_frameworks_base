@@ -1084,6 +1084,10 @@ public class AdbDebuggingManager {
                     Settings.Global.putInt(mContentResolver,
                             Settings.Global.ADB_WIFI_ENABLED, 1);
                     // sendServerConnectionState(false, -1);
+
+                    stopAdbDebuggingThread();
+                    startAdbDebuggingThread();
+
                     break;
                 case MSG_REQ_UNPAIR: {
                     String fingerprint = (String) msg.obj;
