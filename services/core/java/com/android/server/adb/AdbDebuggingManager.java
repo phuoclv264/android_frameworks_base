@@ -1083,7 +1083,7 @@ public class AdbDebuggingManager {
                 case MSG_ADBWIFI_DENY:
                     Settings.Global.putInt(mContentResolver,
                             Settings.Global.ADB_WIFI_ENABLED, 1);
-                    sendServerConnectionState(false, -1);
+                    // sendServerConnectionState(false, -1);
                     break;
                 case MSG_REQ_UNPAIR: {
                     String fingerprint = (String) msg.obj;
