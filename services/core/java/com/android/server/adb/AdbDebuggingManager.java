@@ -1034,16 +1034,14 @@ public class AdbDebuggingManager {
                     if (!mAdbWifiEnabled) {
                         break;
                     }
-                    // mAdbWifiEnabled = false;
-                    // setAdbConnectionInfo(null);
-                    // mContext.unregisterReceiver(mBroadcastReceiver);
+                    mAdbWifiEnabled = false;
+                    setAdbConnectionInfo(null);
+                    mContext.unregisterReceiver(mBroadcastReceiver);
 
-                    // if (mThread != null) {
-                    //     mThread.sendResponse(MSG_DISABLE_ADBDWIFI);
-                    // }
-                    // onAdbdWifiServerDisconnected(-1);
-                    stopAdbDebuggingThread();
-                    startAdbDebuggingThread();
+                    if (mThread != null) {
+                        mThread.sendResponse(MSG_DISABLE_ADBDWIFI);
+                    }
+                    onAdbdWifiServerDisconnected(-1);
                     break;
                 case MSG_ADBWIFI_ALLOW:
                     if (mAdbWifiEnabled) {
@@ -1086,8 +1084,12 @@ public class AdbDebuggingManager {
                     // sendServerConnectionState(false, -1);
 
                     stopAdbDebuggingThread();
-                    startAdbDebuggingThread();
+                    if (mConnectionPortPoller != null) {
+                        mConnectionPortPoller.cancelAndWait();
+                        mConnectionPortPoller = null;
+                    }
 
+                    startAdbDebuggingThread();
                     break;
                 case MSG_REQ_UNPAIR: {
                     String fingerprint = (String) msg.obj;
@@ -1178,18 +1180,16 @@ public class AdbDebuggingManager {
                     if (!mAdbWifiEnabled) {
                         break;
                     }
-                    // int port = (int) msg.obj;
-                    // onAdbdWifiServerDisconnected(port);
+                    int port = (int) msg.obj;
+                    onAdbdWifiServerDisconnected(port);
                     Settings.Global.putInt(mContentResolver,
-                            Settings.Global.ADB_WIFI_ENABLED, 1);
-                    // stopAdbDebuggingThread();
-                    // if (mConnectionPortPoller != null) {
-                    //     mConnectionPortPoller.cancelAndWait();
-                    //     mConnectionPortPoller = null;
-                    // }
-
+                            Settings.Global.ADB_WIFI_ENABLED, 0);
                     stopAdbDebuggingThread();
-                    startAdbDebuggingThread();
+                    if (mConnectionPortPoller != null) {
+                        mConnectionPortPoller.cancelAndWait();
+                        mConnectionPortPoller = null;
+                    }
+
                     break;
                 }
                 case MSG_ADBD_SOCKET_CONNECTED: {
