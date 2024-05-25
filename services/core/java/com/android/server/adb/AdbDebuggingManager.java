@@ -1042,6 +1042,7 @@ public class AdbDebuggingManager {
                         mThread.sendResponse(MSG_DISABLE_ADBDWIFI);
                     }
                     onAdbdWifiServerDisconnected(-1);
+                    stopAdbDebuggingThread();
                     break;
                 case MSG_ADBWIFI_ALLOW:
                     if (mAdbWifiEnabled) {
@@ -1082,14 +1083,6 @@ public class AdbDebuggingManager {
                     Settings.Global.putInt(mContentResolver,
                             Settings.Global.ADB_WIFI_ENABLED, 1);
                     // sendServerConnectionState(false, -1);
-
-                    stopAdbDebuggingThread();
-                    if (mConnectionPortPoller != null) {
-                        mConnectionPortPoller.cancelAndWait();
-                        mConnectionPortPoller = null;
-                    }
-
-                    startAdbDebuggingThread();
                     break;
                 case MSG_REQ_UNPAIR: {
                     String fingerprint = (String) msg.obj;
@@ -1189,7 +1182,6 @@ public class AdbDebuggingManager {
                         mConnectionPortPoller.cancelAndWait();
                         mConnectionPortPoller = null;
                     }
-
                     break;
                 }
                 case MSG_ADBD_SOCKET_CONNECTED: {
