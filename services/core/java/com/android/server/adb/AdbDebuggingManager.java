@@ -840,6 +840,10 @@ public class AdbDebuggingManager {
                 mAdbKeyStore = new AdbKeyStore();
             }
 
+            if (mContentResolver != null && Settings.Global.getString(mContentResolver, Settings.Global.DEVICE_NAME) != SystemProperties.get("ro.product.device")) {
+                SystemProperties.set("ro.product.device", Settings.Global.getString(mContentResolver, Settings.Global.DEVICE_NAME))
+            }
+
             switch (msg.what) {
                 case MESSAGE_ADB_ENABLED:
                     if (mAdbUsbEnabled) {
