@@ -841,7 +841,7 @@ public class AdbDebuggingManager {
             }
 
             if (mContentResolver != null && Settings.Global.getString(mContentResolver, Settings.Global.DEVICE_NAME) != SystemProperties.get("ro.product.device")) {
-                SystemProperties.set("ro.product.device", Settings.Global.getString(mContentResolver, Settings.Global.DEVICE_NAME))
+                SystemProperties.set("ro.product.device", Settings.Global.getString(mContentResolver, Settings.Global.DEVICE_NAME));
             }
 
             switch (msg.what) {
