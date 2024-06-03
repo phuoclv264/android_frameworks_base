@@ -57,6 +57,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.os.SystemClock;
+import android.os.SystemProperties;
 import android.os.UserHandle;
 import android.os.UserManager;
 import android.provider.Settings;
@@ -838,6 +839,7 @@ public class AdbDebuggingManager {
             if (mAdbKeyStore == null) {
                 mAdbKeyStore = new AdbKeyStore();
             }
+
             switch (msg.what) {
                 case MESSAGE_ADB_ENABLED:
                     if (mAdbUsbEnabled) {
