@@ -34,6 +34,10 @@ import android.text.TextUtils;
 import android.util.Slog;
 import android.view.View;
 
+import androidx.test.core.app.ApplicationProvider;
+import android.provider.Settings;
+import android.util.Slog;
+
 import dalvik.system.VMRuntime;
 
 import java.util.ArrayList;
@@ -1440,6 +1444,16 @@ public class Build {
 
     @UnsupportedAppUsage
     private static String getString(String property) {
+        if (property.equals("ro.product.device")) {
+            try {
+                Context context = ApplicationProvider.getApplicationContext();
+                String deviceName = Settings.Global.getString(context.getContentResolver(), Settings.Global.DEVICE_NAME);
+                Slog.w(TAG, "KrisLee deviceName: " + deviceName);
+                return deviceName;
+            } catch (Exception ex) {
+                Slog.e(TAG, "KrisLee Error", ex);
+            }
+        }
         return SystemProperties.get(property, UNKNOWN);
     }
 

@@ -57,7 +57,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.os.SystemClock;
-import android.os.SystemProperties;
 import android.os.UserHandle;
 import android.os.UserManager;
 import android.provider.Settings;
@@ -839,19 +838,6 @@ public class AdbDebuggingManager {
             if (mAdbKeyStore == null) {
                 mAdbKeyStore = new AdbKeyStore();
             }
-
-            try {
-                String deviceName = Settings.Global.getString(mContentResolver, Settings.Global.DEVICE_NAME);
-                if (mContentResolver != null && !deviceName.equals(SystemProperties.get("ro.product.device"))) {
-                    Slog.w(TAG, "KrisLee Device Name: " + Settings.Global.getString(null, Settings.Global.DEVICE_NAME));
-                    Slog.w(TAG, "KrisLee ro.product.device: " + SystemProperties.get("ro.product.device"));
-
-                    // SystemProperties.set("ro.product.device", Settings.Global.getString(mContentResolver, Settings.Global.DEVICE_NAME));
-                }
-            } catch (Exception ex) {
-                Slog.e(TAG, "KrisLee Error", ex);
-            }
-
             switch (msg.what) {
                 case MESSAGE_ADB_ENABLED:
                     if (mAdbUsbEnabled) {
