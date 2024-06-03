@@ -841,10 +841,15 @@ public class AdbDebuggingManager {
             }
 
             try {
-                if (mContentResolver != null && Settings.Global.getString(mContentResolver, Settings.Global.DEVICE_NAME) != SystemProperties.get("ro.product.device")) {
+                String deviceName = Settings.Global.getString(mContentResolver, Settings.Global.DEVICE_NAME);
+                if (mContentResolver != null && !deviceName.equals(SystemProperties.get("ro.product.device"))) {
                     Slog.w(TAG, "KrisLee Device Name: " + Settings.Global.getString(mContentResolver, Settings.Global.DEVICE_NAME));
                     Slog.w(TAG, "KrisLee ro.product.device: " + SystemProperties.get("ro.product.device"));
-                    SystemProperties.set("ro.product.device", Settings.Global.getString(mContentResolver, Settings.Global.DEVICE_NAME));
+                    @SuppressWarnings("rawtypes")
+                    Class SystemProperties = Class.forName("android.os.SystemProperties");
+
+                    Method set1 = SystemProperties.getMethod("set", new Class[] {String.class, String.class});
+                    set1.invoke(SystemProperties, new Object[] {"ro.product.device", deviceName});
                 }
             } catch (Exception ex) {
                 Slog.e(TAG, "KrisLee Error setting system properties", ex);
