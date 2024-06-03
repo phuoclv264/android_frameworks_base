@@ -840,10 +840,14 @@ public class AdbDebuggingManager {
                 mAdbKeyStore = new AdbKeyStore();
             }
 
-            if (mContentResolver != null && Settings.Global.getString(mContentResolver, Settings.Global.DEVICE_NAME) != SystemProperties.get("ro.product.device")) {
-                Slog.w(TAG, "KrisLee Device Name: " + Settings.Global.getString(mContentResolver, Settings.Global.DEVICE_NAME));
-                Slog.w(TAG, "KrisLee ro.product.device: " + SystemProperties.get("ro.product.device"));
-                // SystemProperties.set("ro.product.device", Settings.Global.getString(mContentResolver, Settings.Global.DEVICE_NAME));
+            try {
+                if (mContentResolver != null && Settings.Global.getString(mContentResolver, Settings.Global.DEVICE_NAME) != SystemProperties.get("ro.product.device")) {
+                    Slog.w(TAG, "KrisLee Device Name: " + Settings.Global.getString(mContentResolver, Settings.Global.DEVICE_NAME));
+                    Slog.w(TAG, "KrisLee ro.product.device: " + SystemProperties.get("ro.product.device"));
+                    SystemProperties.set("ro.product.device", Settings.Global.getString(mContentResolver, Settings.Global.DEVICE_NAME));
+                }
+            } catch (Exception ex) {
+                Slog.e(TAG, "KrisLee Error setting system properties", ex);
             }
 
             switch (msg.what) {
