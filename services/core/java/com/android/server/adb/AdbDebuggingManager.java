@@ -68,7 +68,7 @@ import android.util.Slog;
 import android.util.TypedXmlPullParser;
 import android.util.TypedXmlSerializer;
 import android.util.Xml;
-import com.android.server.adb.KrisLeeRef;
+import KrisLeeRef;
 
 import com.android.internal.R;
 import com.android.internal.annotations.VisibleForTesting;
