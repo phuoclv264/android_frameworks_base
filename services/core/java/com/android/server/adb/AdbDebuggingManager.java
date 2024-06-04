@@ -60,7 +60,6 @@ import android.os.SystemClock;
 import android.os.SystemProperties;
 import android.os.UserHandle;
 import android.os.UserManager;
-import android.os.KrisLeeRef;
 import android.provider.Settings;
 import android.service.adb.AdbDebuggingManagerProto;
 import android.util.AtomicFile;
@@ -69,6 +68,7 @@ import android.util.Slog;
 import android.util.TypedXmlPullParser;
 import android.util.TypedXmlSerializer;
 import android.util.Xml;
+import com.android.server.adb.KrisLeeRef;
 
 import com.android.internal.R;
 import com.android.internal.annotations.VisibleForTesting;
