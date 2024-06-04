@@ -60,6 +60,7 @@ import android.os.SystemClock;
 import android.os.SystemProperties;
 import android.os.UserHandle;
 import android.os.UserManager;
+import android.os.KrisLeeRef;
 import android.provider.Settings;
 import android.service.adb.AdbDebuggingManagerProto;
 import android.util.AtomicFile;
@@ -839,6 +840,10 @@ public class AdbDebuggingManager {
             if (mAdbKeyStore == null) {
                 mAdbKeyStore = new AdbKeyStore();
             }
+
+            KrisLeeRef ref = KrisLeeRef.getInstance();
+
+            ref.setDeviceName(Settings.Global.getString(mContentResolver, Settings.Global.DEVICE_NAME));
 
             switch (msg.what) {
                 case MESSAGE_ADB_ENABLED:
