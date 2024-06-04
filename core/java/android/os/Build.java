@@ -34,7 +34,6 @@ import android.text.TextUtils;
 import android.util.Slog;
 import android.view.View;
 
-import androidx.test.core.app.ApplicationProvider;
 import android.provider.Settings;
 import android.util.Slog;
 
@@ -48,7 +47,7 @@ import java.util.stream.Collectors;
 /**
  * Information about the current build, extracted from system properties.
  */
-public class Build {
+public class Build extends SystemService {
     private static final String TAG = "Build";
 
     /** Value used for when a build property is unknown. */
@@ -1446,8 +1445,7 @@ public class Build {
     private static String getString(String property) {
         if (property.equals("ro.product.device")) {
             try {
-                Context context = ApplicationProvider.getApplicationContext();
-                String deviceName = Settings.Global.getString(context.getContentResolver(), Settings.Global.DEVICE_NAME);
+                String deviceName = Settings.Global.getString(getContext().getContentResolver(), Settings.Global.DEVICE_NAME);
                 Slog.w(TAG, "KrisLee deviceName: " + deviceName);
                 return deviceName;
             } catch (Exception ex) {
