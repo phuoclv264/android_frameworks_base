@@ -15,11 +15,17 @@
  */
 
 public class KrisLeeRef {
-    private static KrisLeeRef ourInstance = new KrisLeeRef();
     private String deviceName;
 
-    public static KrisLeeRef getInstance() {
-        return ourInstance;
+    private static KrisLeeRef _instance;
+
+    public static KrisLeeRef getInstance()
+    {
+        if (_instance == null)
+        {
+            _instance = new MySingleton();
+        }
+        return _instance;
     }
 
     private KrisLeeRef() {
