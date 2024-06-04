@@ -35,7 +35,6 @@ import android.util.Slog;
 import android.view.View;
 
 import android.provider.Settings;
-import android.util.Slog;
 
 import dalvik.system.VMRuntime;
 
@@ -47,7 +46,7 @@ import java.util.stream.Collectors;
 /**
  * Information about the current build, extracted from system properties.
  */
-public class Build extends SystemService {
+public class Build {
     private static final String TAG = "Build";
 
     /** Value used for when a build property is unknown. */
@@ -1443,15 +1442,15 @@ public class Build extends SystemService {
 
     @UnsupportedAppUsage
     private static String getString(String property) {
-        if (property.equals("ro.product.device")) {
-            try {
-                String deviceName = Settings.Global.getString(getContext().getContentResolver(), Settings.Global.DEVICE_NAME);
-                Slog.w(TAG, "KrisLee deviceName: " + deviceName);
-                return deviceName;
-            } catch (Exception ex) {
-                Slog.e(TAG, "KrisLee Error", ex);
-            }
-        }
+        // if (property.equals("ro.product.device")) {
+        //     try {
+        //         String deviceName = Settings.Global.getString(getContext().getContentResolver(), Settings.Global.DEVICE_NAME);
+        //         Slog.w(TAG, "KrisLee deviceName: " + deviceName);
+        //         return deviceName;
+        //     } catch (Exception ex) {
+        //         Slog.e(TAG, "KrisLee Error", ex);
+        //     }
+        // }
         return SystemProperties.get(property, UNKNOWN);
     }
 
