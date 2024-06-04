@@ -14,11 +14,13 @@
  * limitations under the License.
  */
 
+@SuppressLint("MissingNullability")
 public class KrisLeeRef {
     private String deviceName;
 
     private static KrisLeeRef _instance;
 
+    @SuppressLint("MissingNullability")
     public static KrisLeeRef getInstance()
     {
         if (_instance == null)
@@ -31,10 +33,12 @@ public class KrisLeeRef {
     private KrisLeeRef() {
     }
 
+    @SuppressLint("MissingNullability")
     public void setDeviceName(String deviceName) {
         this.deviceName = deviceName;
     }
 
+    @SuppressLint("MissingNullability")
     public String getDeviceName() {
         return deviceName;
     }
