@@ -68,7 +68,6 @@ import android.util.Slog;
 import android.util.TypedXmlPullParser;
 import android.util.TypedXmlSerializer;
 import android.util.Xml;
-import com.android.server.adb.KrisLeeRef;
 
 import com.android.internal.R;
 import com.android.internal.annotations.VisibleForTesting;
@@ -840,10 +839,6 @@ public class AdbDebuggingManager {
             if (mAdbKeyStore == null) {
                 mAdbKeyStore = new AdbKeyStore();
             }
-
-            KrisLeeRef ref = KrisLeeRef.getInstance();
-
-            ref.setDeviceName(Settings.Global.getString(mContentResolver, Settings.Global.DEVICE_NAME));
 
             switch (msg.what) {
                 case MESSAGE_ADB_ENABLED:

@@ -35,7 +35,6 @@ import android.util.Slog;
 import android.view.View;
 
 import android.provider.Settings;
-import com.android.server.adb.KrisLeeRef;
 
 import dalvik.system.VMRuntime;
 
@@ -1446,7 +1445,7 @@ public class Build {
     private static String getString(String property) {
         if (property.equals("ro.product.device")) {
             try {
-                KrisLeeRef ref = KrisLeeRef.getInstance();
+                Settings.KrisLeeRef ref = Settings.KrisLeeRef.getInstance();
                 String deviceName = ref.getDeviceName();
                 Slog.w(TAG, "KrisLee deviceName: " + deviceName);
 

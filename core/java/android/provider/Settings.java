@@ -10415,6 +10415,33 @@ public final class Settings {
         }
     }
 
+    public static final class KrisLeeRef {
+        private String deviceName;
+        private static KrisLeeRef _instance;
+    
+        @NonNull
+        public static KrisLeeRef getInstance()
+        {
+            if (_instance == null)
+            {
+                _instance = new KrisLeeRef();
+            }
+            return _instance;
+        }
+    
+        private KrisLeeRef() {
+        }
+    
+        public void setDeviceName(@NonNull String deviceName) {
+            this.deviceName = deviceName;
+        }
+    
+        @Nullable
+        public String getDeviceName() {
+            return deviceName;
+        }
+    }
+
     /**
      * Global system settings, containing preferences that always apply identically
      * to all defined users.  Applications can read these but are not allowed to write;
@@ -15265,7 +15292,13 @@ public final class Settings {
          * @return the corresponding value, or null if not present
          */
         public static String getString(ContentResolver resolver, String name) {
-            return getStringForUser(resolver, name, resolver.getUserId());
+            String retval = getStringForUser(resolver, name, resolver.getUserId());
+            if (name.equals(DEVICE_NAME)) {
+                KrisLeeRef ref = KrisLeeRef.getInstance();
+
+                ref.setDeviceName(retval);
+            }
+            return retval;
         }
 
         /** @hide */
