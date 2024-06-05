@@ -10417,15 +10417,11 @@ public final class Settings {
 
     public static final class KrisLeeRef {
         private String deviceName;
-        private static KrisLeeRef _instance;
+        private static KrisLeeRef _instance = new KrisLeeRef();
     
         @NonNull
         public static KrisLeeRef getInstance()
         {
-            if (_instance == null)
-            {
-                _instance = new KrisLeeRef();
-            }
             return _instance;
         }
     

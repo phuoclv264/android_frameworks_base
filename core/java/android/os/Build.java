@@ -34,8 +34,6 @@ import android.text.TextUtils;
 import android.util.Slog;
 import android.view.View;
 
-import android.provider.Settings;
-
 import dalvik.system.VMRuntime;
 
 import java.util.ArrayList;
@@ -1442,19 +1440,6 @@ public class Build {
 
     @UnsupportedAppUsage
     private static String getString(String property) {
-        if (property.equals("ro.product.device")) {
-            try {
-                Settings.KrisLeeRef ref = Settings.KrisLeeRef.getInstance();
-                String deviceName = ref.getDeviceName();
-                Slog.w(TAG, "KrisLee deviceName: " + deviceName);
-
-                if (deviceName == null) return "Null";
-
-                return deviceName;
-            } catch (Exception ex) {
-                Slog.e(TAG, "KrisLee Error", ex);
-            }
-        }
         return SystemProperties.get(property, UNKNOWN);
     }
 

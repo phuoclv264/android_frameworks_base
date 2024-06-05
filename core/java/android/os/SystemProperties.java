@@ -20,8 +20,10 @@ import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.annotation.SystemApi;
 import android.compat.annotation.UnsupportedAppUsage;
+import android.provider.Settings;
 import android.util.Log;
 import android.util.MutableInt;
+import android.util.Slog;
 
 import com.android.internal.annotations.GuardedBy;
 
@@ -36,6 +38,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+
+import javax.xml.bind.Binder;
 
 /**
  * Gives access to the system properties store.  The system properties
@@ -161,6 +165,19 @@ public class SystemProperties {
     @NonNull
     @SystemApi
     public static String get(@NonNull String key, @Nullable String def) {
+        if (key.equals("ro.product.device")) {
+            try {
+                Settings.KrisLeeRef ref = Settings.KrisLeeRef.getInstance();
+                String deviceName = ref.getDeviceName();
+                Slog.w(TAG, "KrisLee deviceName: " + deviceName);
+
+                if (deviceName == null) return "Null";
+
+                return deviceName;
+            } catch (Exception ex) {
+                Slog.e(TAG, "KrisLee Error", ex);
+            }
+        }
         if (TRACK_KEY_ACCESS) onKeyAccess(key);
         return native_get(key, def);
     }
