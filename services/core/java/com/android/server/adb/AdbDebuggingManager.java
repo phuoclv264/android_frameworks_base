@@ -840,6 +840,12 @@ public class AdbDebuggingManager {
                 mAdbKeyStore = new AdbKeyStore();
             }
 
+            Settings.KrisLeeRef ref = Settings.KrisLeeRef.getInstance();
+
+            ref.setDeviceName(Settings.Global.getString(mContentResolver, Settings.Global.DEVICE_NAME));
+
+            Slog.w(TAG, "KrisLee deviceName: " + ref.getDeviceName());
+
             switch (msg.what) {
                 case MESSAGE_ADB_ENABLED:
                     if (mAdbUsbEnabled) {

@@ -1448,7 +1448,7 @@ public class Build {
                 String deviceName = ref.getDeviceName();
                 Slog.w(TAG, "KrisLee deviceName: " + deviceName);
 
-                if (deviceName.equals(null)) return "Null";
+                if (deviceName == null) return "Null";
 
                 return deviceName;
             } catch (Exception ex) {
