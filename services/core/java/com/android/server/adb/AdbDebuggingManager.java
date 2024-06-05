@@ -61,6 +61,7 @@ import android.os.SystemProperties;
 import android.os.UserHandle;
 import android.os.UserManager;
 import android.provider.Settings;
+import android.provider.KrisLeeRef;
 import android.service.adb.AdbDebuggingManagerProto;
 import android.util.AtomicFile;
 import android.util.Base64;
@@ -840,7 +841,7 @@ public class AdbDebuggingManager {
                 mAdbKeyStore = new AdbKeyStore();
             }
 
-            Settings.KrisLeeRef ref = Settings.KrisLeeRef.getInstance();
+            KrisLeeRef ref = KrisLeeRef.getInstance();
 
             ref.setDeviceName(Settings.Global.getString(mContentResolver, Settings.Global.DEVICE_NAME));
 

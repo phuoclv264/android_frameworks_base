@@ -87,6 +87,8 @@ import android.view.Display;
 import android.view.Window;
 import android.view.WindowManager.LayoutParams;
 
+import android.provider.KrisLeeRef;
+
 import com.android.internal.annotations.GuardedBy;
 import com.android.internal.util.Preconditions;
 import com.android.internal.widget.ILockSettings;
@@ -10412,29 +10414,6 @@ public final class Settings {
         @Deprecated
         public static void setLocationProviderEnabled(ContentResolver cr,
                 String provider, boolean enabled) {
-        }
-    }
-
-    public static final class KrisLeeRef {
-        private String deviceName;
-        private static KrisLeeRef _instance = new KrisLeeRef();
-    
-        @NonNull
-        public static KrisLeeRef getInstance()
-        {
-            return _instance;
-        }
-    
-        private KrisLeeRef() {
-        }
-    
-        public void setDeviceName(@NonNull String deviceName) {
-            this.deviceName = deviceName;
-        }
-    
-        @Nullable
-        public String getDeviceName() {
-            return deviceName;
         }
     }
 

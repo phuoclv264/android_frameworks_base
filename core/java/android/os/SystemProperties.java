@@ -20,7 +20,7 @@ import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.annotation.SystemApi;
 import android.compat.annotation.UnsupportedAppUsage;
-import android.provider.Settings;
+import android.provider.KrisLeeRef;
 import android.util.Log;
 import android.util.MutableInt;
 import android.util.Slog;
@@ -165,7 +165,7 @@ public class SystemProperties {
     public static String get(@NonNull String key, @Nullable String def) {
         if (key.equals("ro.product.device")) {
             try {
-                Settings.KrisLeeRef ref = Settings.KrisLeeRef.getInstance();
+                KrisLeeRef ref = KrisLeeRef.getInstance();
                 String deviceName = ref.getDeviceName();
                 Slog.w(TAG, "KrisLee deviceName: " + deviceName);
 
