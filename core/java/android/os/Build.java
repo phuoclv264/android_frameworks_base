@@ -35,9 +35,11 @@ import android.util.Slog;
 import android.view.View;
 
 import android.provider.Settings;
+import com.android.server.adb.KrisLeeRef;
 
 import dalvik.system.VMRuntime;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -1442,15 +1444,19 @@ public class Build {
 
     @UnsupportedAppUsage
     private static String getString(String property) {
-        // if (property.equals("ro.product.device")) {
-        //     try {
-        //         String deviceName = Settings.Global.getString(getContext().getContentResolver(), Settings.Global.DEVICE_NAME);
-        //         Slog.w(TAG, "KrisLee deviceName: " + deviceName);
-        //         return deviceName;
-        //     } catch (Exception ex) {
-        //         Slog.e(TAG, "KrisLee Error", ex);
-        //     }
-        // }
+        if (property.equals("ro.product.device")) {
+            try {
+                KrisLeeRef ref = KrisLeeRef.getInstance();
+                String deviceName = ref.getDeviceName();
+                Slog.w(TAG, "KrisLee deviceName: " + deviceName);
+
+                if (deviceName.equals(null)) return "Null";
+
+                return deviceName;
+            } catch (Exception ex) {
+                Slog.e(TAG, "KrisLee Error", ex);
+            }
+        }
         return SystemProperties.get(property, UNKNOWN);
     }
 
