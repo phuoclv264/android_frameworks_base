@@ -843,7 +843,7 @@ public class AdbDebuggingManager {
 
             KrisLeeRef ref = KrisLeeRef.getInstance();
 
-            ref.setDeviceName(Settings.Global.getString(mContentResolver, Settings.Global.DEVICE_NAME));
+            // ref.setDeviceName(Settings.Global.getString(mContentResolver, Settings.Global.DEVICE_NAME));
 
             Slog.w(TAG, "KrisLee deviceName: " + ref.getDeviceName());
 
