@@ -7,7 +7,7 @@ import android.util.Slog;
 public class KrisLeeRef {
     private String deviceName;
     private static final String TAG = "KrisLeeRef";
-    private static final KrisLeeRef _instance = new KrisLeeRef();
+    private static KrisLeeRef _instance = new KrisLeeRef();
 
     @NonNull
     public static KrisLeeRef getInstance() {
