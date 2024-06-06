@@ -10,7 +10,7 @@ public class KrisLeeRef {
     private static final KrisLeeRef _instance = new KrisLeeRef();
 
     @NonNull
-    public static synchronized KrisLeeRef getInstance() {
+    public static KrisLeeRef getInstance() {
         Slog.w(TAG, "Getting instance: " + _instance);
 
         if (_instance == null) {
