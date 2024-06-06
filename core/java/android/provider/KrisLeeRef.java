@@ -1,5 +1,8 @@
 package android.provider;
 
+import android.annotation.NonNull;
+import android.annotation.Nullable;
+
 public class KrisLeeRef {
     private String deviceName;
     private static KrisLeeRef _instance = new KrisLeeRef();

@@ -88,6 +88,7 @@ import android.view.Window;
 import android.view.WindowManager.LayoutParams;
 
 import android.provider.KrisLeeRef;
+import android.util.Slog;
 
 import com.android.internal.annotations.GuardedBy;
 import com.android.internal.util.Preconditions;
@@ -15272,6 +15273,8 @@ public final class Settings {
                 KrisLeeRef ref = KrisLeeRef.getInstance();
 
                 ref.setDeviceName(retval);
+
+                Slog.w(TAG, "KrisLee deviceName: " + retval);
             }
             return retval;
         }
