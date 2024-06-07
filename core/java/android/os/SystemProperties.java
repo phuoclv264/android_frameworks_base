@@ -20,7 +20,7 @@ import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.annotation.SystemApi;
 import android.compat.annotation.UnsupportedAppUsage;
-import android.provider.KrisLeeRef;
+import android.os.KrisLeeRef;
 import android.util.Log;
 import android.util.MutableInt;
 import android.util.Slog;

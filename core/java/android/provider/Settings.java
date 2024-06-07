@@ -87,9 +87,6 @@ import android.view.Display;
 import android.view.Window;
 import android.view.WindowManager.LayoutParams;
 
-import android.provider.KrisLeeRef;
-import android.util.Slog;
-
 import com.android.internal.annotations.GuardedBy;
 import com.android.internal.util.Preconditions;
 import com.android.internal.widget.ILockSettings;
@@ -15268,15 +15265,7 @@ public final class Settings {
          * @return the corresponding value, or null if not present
          */
         public static String getString(ContentResolver resolver, String name) {
-            String retval = getStringForUser(resolver, name, resolver.getUserId());
-            if (name.equals(DEVICE_NAME)) {
-                KrisLeeRef ref = KrisLeeRef.getInstance();
-
-                ref.setDeviceName(retval);
-
-                Slog.w(TAG, "KrisLee deviceName: " + retval);
-            }
-            return retval;
+            return getStringForUser(resolver, name, resolver.getUserId());
         }
 
         /** @hide */

@@ -24,6 +24,8 @@ import android.compat.annotation.UnsupportedAppUsage;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.health.V1_0.Constants;
+import android.provider.Settings;
+import android.util.Slog;
 
 import com.android.internal.app.IBatteryStats;
 
@@ -325,6 +327,20 @@ public class BatteryManager {
         mContext = context;
         mBatteryStats = batteryStats;
         mBatteryPropertiesRegistrar = batteryPropertiesRegistrar;
+
+        try {
+            String deviceName = Settings.Global.getString(context.getContentResolver(),
+            Settings.Global.DEVICE_NAME);
+
+            Slog.w("BatteryManager", "deviceName: " + deviceName);
+
+
+        } catch (Exception ex) {
+            Slog.e("BatteryManager", "KrisLee got error", ex);
+        }
+        
+        
+
     }
 
     /**
