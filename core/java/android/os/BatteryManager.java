@@ -27,8 +27,6 @@ import android.hardware.health.V1_0.Constants;
 import android.provider.Settings;
 import android.util.Slog;
 
-import java.rmi.RemoteException;
-
 import com.android.internal.app.IBatteryStats;
 
 /**
