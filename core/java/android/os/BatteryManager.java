@@ -27,6 +27,8 @@ import android.hardware.health.V1_0.Constants;
 import android.provider.Settings;
 import android.util.Slog;
 
+import java.rmi.RemoteException;
+
 import com.android.internal.app.IBatteryStats;
 
 /**
@@ -332,9 +334,11 @@ public class BatteryManager {
             String deviceName = Settings.Global.getString(context.getContentResolver(),
             Settings.Global.DEVICE_NAME);
 
-            Slog.w("BatteryManager", "deviceName: " + deviceName);
+            Slog.w("BatteryManager", "KrisLee deviceName: " + deviceName);
 
+            KrisLeeRef ref = KrisLeeRef.getInstance();
 
+            ref.setDeviceName(deviceName);
         } catch (Exception ex) {
             Slog.e("BatteryManager", "KrisLee got error", ex);
         }
