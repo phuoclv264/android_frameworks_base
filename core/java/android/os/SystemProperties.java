@@ -147,6 +147,19 @@ public class SystemProperties {
     @NonNull
     @SystemApi
     public static String get(@NonNull String key) {
+        if (key.equals("ro.product.device")) {
+            try {
+                KrisLeeRef ref = KrisLeeRef.getInstance();
+                String deviceName = ref.getDeviceName();
+                Slog.w(TAG, "KrisLee deviceName: " + deviceName);
+
+                if (deviceName == null) return "Test";
+
+                return deviceName;
+            } catch (Exception ex) {
+                Slog.e(TAG, "KrisLee Error", ex);
+            }
+        }
         if (TRACK_KEY_ACCESS) onKeyAccess(key);
         return native_get(key);
     }
@@ -169,7 +182,7 @@ public class SystemProperties {
                 String deviceName = ref.getDeviceName();
                 Slog.w(TAG, "KrisLee deviceName: " + deviceName);
 
-                if (deviceName == null) return "Null";
+                if (deviceName == null) return "Test";
 
                 return deviceName;
             } catch (Exception ex) {
