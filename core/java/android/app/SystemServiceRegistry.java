@@ -164,7 +164,6 @@ import android.os.ISystemUpdateManager;
 import android.os.IThermalService;
 import android.os.IUserManager;
 import android.os.IncidentManager;
-import android.os.KrisLeeRef;
 import android.os.PerformanceHintManager;
 import android.os.PowerManager;
 import android.os.RecoverySystem;
@@ -1515,7 +1514,6 @@ public final class SystemServiceRegistry {
         if (name == null) {
             return null;
         }
-        KrisLeeRef.getInstance().initialize(ctx);
         final ServiceFetcher<?> fetcher = SYSTEM_SERVICE_FETCHERS.get(name);
         if (fetcher == null) {
             if (sEnableServiceNotFoundWtf) {

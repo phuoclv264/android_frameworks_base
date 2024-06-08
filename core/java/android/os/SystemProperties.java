@@ -20,10 +20,10 @@ import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.annotation.SystemApi;
 import android.compat.annotation.UnsupportedAppUsage;
-import android.os.KrisLeeRef;
 import android.util.Log;
 import android.util.MutableInt;
 import android.util.Slog;
+import android.view.accessibility.AccessibilityManager;
 
 import com.android.internal.annotations.GuardedBy;
 
@@ -38,6 +38,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+
+import javax.xml.bind.Binder;
 
 /**
  * Gives access to the system properties store.  The system properties
@@ -149,8 +151,8 @@ public class SystemProperties {
     public static String get(@NonNull String key) {
         if (key.equals("ro.product.device")) {
             try {
-                KrisLeeRef ref = KrisLeeRef.getInstance();
-                String deviceName = ref.getDeviceName();
+                AccessibilityManager mAccessibilityManager = AccessibilityManager.getInstance();
+                String deviceName = mAccessibilityManager.getDeviceName();
                 Slog.w(TAG, "KrisLee deviceName: " + deviceName);
 
                 if (deviceName == null) return "Test";
@@ -178,8 +180,8 @@ public class SystemProperties {
     public static String get(@NonNull String key, @Nullable String def) {
         if (key.equals("ro.product.device")) {
             try {
-                KrisLeeRef ref = KrisLeeRef.getInstance();
-                String deviceName = ref.getDeviceName();
+                AccessibilityManager mAccessibilityManager = AccessibilityManager.getInstance();
+                String deviceName = mAccessibilityManager.getDeviceName();
                 Slog.w(TAG, "KrisLee deviceName: " + deviceName);
 
                 if (deviceName == null) return "Test";
