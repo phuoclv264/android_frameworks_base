@@ -39,8 +39,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
-import javax.xml.bind.Binder;
-
 /**
  * Gives access to the system properties store.  The system properties
  * store contains a list of string key-value pairs.

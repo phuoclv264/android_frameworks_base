@@ -61,8 +61,6 @@ import android.util.SparseArray;
 import android.view.IWindow;
 import android.view.View;
 import android.view.accessibility.AccessibilityEvent.EventType;
-import android.view.accessibility.AccessibilityManager.AccessibilityStateChangeListener;
-import android.view.accessibility.AccessibilityManager.TouchExplorationStateChangeListener;
 
 import com.android.internal.R;
 import com.android.internal.annotations.VisibleForTesting;
