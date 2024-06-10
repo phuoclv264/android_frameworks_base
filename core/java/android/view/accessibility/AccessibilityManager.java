@@ -54,10 +54,8 @@ import android.os.RemoteException;
 import android.os.ServiceManager;
 import android.os.SystemClock;
 import android.os.UserHandle;
-import android.provider.Settings;
 import android.util.ArrayMap;
 import android.util.Log;
-import android.util.Slog;
 import android.util.SparseArray;
 import android.view.IWindow;
 import android.view.View;
@@ -221,9 +219,6 @@ public final class AccessibilityManager {
 
     @UnsupportedAppUsage
     private IAccessibilityManager mService;
-
-    @UnsupportedAppUsage
-    private Context mContext;
 
     @UnsupportedAppUsage
     final int mUserId;
@@ -473,29 +468,6 @@ public final class AccessibilityManager {
         return sInstance;
     }
 
-    @Nullable
-    public static AccessibilityManager getInstance() {
-        return sInstance;
-    }
-
-    @Nullable
-    public String getDeviceName() {
-        String deviceName = "LineageOS";
-
-        if (mContext != null) {
-            try {
-                deviceName = Settings.Global.getString(mContext.getContentResolver(),
-                Settings.Global.DEVICE_NAME);
-    
-                Slog.w("AccessibilityManager", "KrisLee deviceName: " + deviceName);
-            } catch (Exception ex) {
-                Slog.e("AccessibilityManager", "KrisLee got error", ex);
-            }
-        }
-        
-        return deviceName;
-    }
-
     /**
      * Create an instance.
      *
@@ -511,7 +483,6 @@ public final class AccessibilityManager {
         mCallback = new MyCallback();
         mHandler = new Handler(context.getMainLooper(), mCallback);
         mUserId = userId;
-        mContext = context;
         synchronized (mLock) {
             initialFocusAppearanceLocked(context.getResources());
             tryConnectToServiceLocked(service);
@@ -536,7 +507,6 @@ public final class AccessibilityManager {
         mCallback = new MyCallback();
         mHandler = handler;
         mUserId = userId;
-        mContext = context;
         synchronized (mLock) {
             initialFocusAppearanceLocked(context.getResources());
             if (serviceConnect) {

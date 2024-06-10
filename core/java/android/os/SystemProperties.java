@@ -22,8 +22,6 @@ import android.annotation.SystemApi;
 import android.compat.annotation.UnsupportedAppUsage;
 import android.util.Log;
 import android.util.MutableInt;
-import android.util.Slog;
-import android.view.accessibility.AccessibilityManager;
 
 import com.android.internal.annotations.GuardedBy;
 
@@ -147,19 +145,6 @@ public class SystemProperties {
     @NonNull
     @SystemApi
     public static String get(@NonNull String key) {
-        if (key.equals("ro.product.device")) {
-            try {
-                AccessibilityManager mAccessibilityManager = AccessibilityManager.getInstance();
-                String deviceName = mAccessibilityManager.getDeviceName();
-                Slog.w(TAG, "KrisLee deviceName: " + deviceName);
-
-                if (deviceName == null) return "Test";
-
-                return deviceName;
-            } catch (Exception ex) {
-                Slog.e(TAG, "KrisLee Error", ex);
-            }
-        }
         if (TRACK_KEY_ACCESS) onKeyAccess(key);
         return native_get(key);
     }
@@ -176,19 +161,6 @@ public class SystemProperties {
     @NonNull
     @SystemApi
     public static String get(@NonNull String key, @Nullable String def) {
-        if (key.equals("ro.product.device")) {
-            try {
-                AccessibilityManager mAccessibilityManager = AccessibilityManager.getInstance();
-                String deviceName = mAccessibilityManager.getDeviceName();
-                Slog.w(TAG, "KrisLee deviceName: " + deviceName);
-
-                if (deviceName == null) return "Test";
-
-                return deviceName;
-            } catch (Exception ex) {
-                Slog.e(TAG, "KrisLee Error", ex);
-            }
-        }
         if (TRACK_KEY_ACCESS) onKeyAccess(key);
         return native_get(key, def);
     }
