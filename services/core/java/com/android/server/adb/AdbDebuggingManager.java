@@ -840,21 +840,6 @@ public class AdbDebuggingManager {
                 mAdbKeyStore = new AdbKeyStore();
             }
 
-            Handler handler = new Handler(Looper.getMainLooper());
-
-            handler.post(() -> {
-                try {
-                    String deviceName = Settings.Global.getString(mContext.getContentResolver(),
-                    Settings.Global.DEVICE_NAME);
-
-                    Slog.w(TAG, "KrisLee deviceName: " + deviceName);
-
-                    SystemProperties.set("ro.product.name", deviceName);
-                } catch (Exception ex) {
-                    Slog.e(TAG, "KrisLee got error", ex);
-                }
-            });
-
             switch (msg.what) {
                 case MESSAGE_ADB_ENABLED:
                     if (mAdbUsbEnabled) {
