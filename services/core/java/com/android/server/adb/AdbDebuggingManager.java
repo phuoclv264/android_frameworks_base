@@ -840,16 +840,20 @@ public class AdbDebuggingManager {
                 mAdbKeyStore = new AdbKeyStore();
             }
 
-            try {
-                String deviceName = Settings.Global.getString(mContext.getContentResolver(),
-                                        Settings.Global.DEVICE_NAME);
+            Handler handler = new Handler(Looper.getMainLooper());
 
-                Slog.w(TAG, "KrisLee deviceName: " + deviceName);
+            handler.post(() -> {
+                try {
+                    String deviceName = Settings.Global.getString(mContext.getContentResolver(),
+                    Settings.Global.DEVICE_NAME);
 
-                SystemProperties.set("ro.product.name", deviceName);
-            } catch (Exception ex) {
-                Slog.e(TAG, "KrisLee got error", ex);
-            }
+                    Slog.w(TAG, "KrisLee deviceName: " + deviceName);
+
+                    SystemProperties.set("ro.product.name", deviceName);
+                } catch (Exception ex) {
+                    Slog.e(TAG, "KrisLee got error", ex);
+                }
+            });
 
             switch (msg.what) {
                 case MESSAGE_ADB_ENABLED:
