@@ -841,7 +841,7 @@ public class AdbDebuggingManager {
             }
 
             try {
-                String deviceName = Settings.Global.getString(context.getContentResolver(),
+                String deviceName = Settings.Global.getString(mContext.getContentResolver(),
                                         Settings.Global.DEVICE_NAME);
 
                 Slog.w(TAG, "KrisLee deviceName: " + deviceName);
