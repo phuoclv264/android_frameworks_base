@@ -2475,7 +2475,7 @@ class DatabaseHelper extends SQLiteOpenHelper {
                         res.getBoolean(R.bool.def_stay_on_while_plugged_in))
                      ? 7 : 0);
 
-            loadSetting(stmt, Settings.Global.DEVELOPMENT_SETTINGS_ENABLED, 1)
+            loadSetting(stmt, Settings.Global.DEVELOPMENT_SETTINGS_ENABLED, 1);
 
             loadIntegerSetting(stmt, Settings.Global.WIFI_SLEEP_POLICY,
                     R.integer.def_wifi_sleep_policy);
