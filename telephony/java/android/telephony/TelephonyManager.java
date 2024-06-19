@@ -2459,7 +2459,7 @@ public class TelephonyManager {
     /** {@hide} */
     @UnsupportedAppUsage
     public String getNetworkCountryIsoForPhone(int phoneId) {
-        return "sa"
+        return "sa";
         /*
         try {
             ITelephony telephony = getITelephony();
