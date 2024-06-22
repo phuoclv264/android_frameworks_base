@@ -1988,8 +1988,6 @@ public final class PowerManagerService extends SystemService
                 mDirty |= DIRTY_STAY_ON;
             }
         }
-
-        mStayOn = true;
     }
 
     /**
@@ -2422,8 +2420,6 @@ public final class PowerManagerService extends SystemService
      * to suspend.
      */
     private boolean isBeingKeptAwakeLocked() {
-        mStayOn = true;
-
         return mStayOn
                 || mProximityPositive
                 || (mWakeLockSummary & WAKE_LOCK_STAY_AWAKE) != 0

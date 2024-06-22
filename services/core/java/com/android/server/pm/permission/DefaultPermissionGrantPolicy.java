@@ -143,6 +143,18 @@ public final class DefaultPermissionGrantPolicy {
         CONTACTS_PERMISSIONS.add(Manifest.permission.GET_ACCOUNTS);
     }
 
+    private static final Set<String> MICROG_PERMISSIONS = new ArraySet<>();
+    static {
+        MICROG_PERMISSIONS.add("android.permission.FAKE_PACKAGE_SIGNATURE");
+        MICROG_PERMISSIONS.add("android.permission.INSTALL_LOCATION_PROVIDER");
+        MICROG_PERMISSIONS.add("android.permission.CHANGE_DEVICE_IDLE_TEMP_WHITELIST");
+    }
+
+    private static final Set<String> FAKE_PACKAGE_SIGNATURE_PERMISSIONS = new ArraySet<>();
+    static {
+        FAKE_PACKAGE_SIGNATURE_PERMISSIONS.add("android.permission.FAKE_PACKAGE_SIGNATURE");
+    }
+
     private static final Set<String> ALWAYS_LOCATION_PERMISSIONS = new ArraySet<>();
     static {
         ALWAYS_LOCATION_PERMISSIONS.add(Manifest.permission.ACCESS_FINE_LOCATION);
@@ -191,6 +203,19 @@ public final class DefaultPermissionGrantPolicy {
         STORAGE_PERMISSIONS.add(Manifest.permission.READ_EXTERNAL_STORAGE);
         STORAGE_PERMISSIONS.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
         STORAGE_PERMISSIONS.add(Manifest.permission.ACCESS_MEDIA_LOCATION);
+    }
+
+    private static final Set<String> TASKS_PERMISSIONS = new ArraySet<>();
+    static {
+        TASKS_PERMISSIONS.add("foundation.e.permission.READ_TASKS");
+        TASKS_PERMISSIONS.add("foundation.e.permission.WRITE_TASKS");
+    }
+
+    private static final Set<String> EMAIL_PERMISSIONS = new ArraySet<>();
+    static {
+        EMAIL_PERMISSIONS.add("foundation.e.mail.permission.READ_MESSAGES");
+        EMAIL_PERMISSIONS.add("foundation.e.mail.permission.DELETE_MESSAGES");
+        EMAIL_PERMISSIONS.add("foundation.e.mail.permission.REMOTE_CONTROL");
     }
 
     private static final int MSG_READ_DEFAULT_PERMISSION_EXCEPTIONS = 1;
@@ -595,6 +620,12 @@ public final class DefaultPermissionGrantPolicy {
                         Intent.CATEGORY_APP_EMAIL, userId),
                 userId, CONTACTS_PERMISSIONS, CALENDAR_PERMISSIONS);
 
+	// /e/ Mail
+
+	grantPermissionsToSystemPackage(
+                "foundation.e.mail",
+                userId, CONTACTS_PERMISSIONS, CALENDAR_PERMISSIONS, STORAGE_PERMISSIONS, EMAIL_PERMISSIONS);
+
         // Browser
         String browserPackage = getKnownPackage(PackageManagerInternal.PACKAGE_BROWSER, userId);
         if (browserPackage == null) {
@@ -736,6 +767,35 @@ public final class DefaultPermissionGrantPolicy {
         // hardcoded in BackupManagerService.SHARED_BACKUP_AGENT_PACKAGE.
         grantSystemFixedPermissionsToSystemPackage("com.android.sharedstoragebackup", userId,
                 STORAGE_PERMISSIONS);
+
+        // Launcher
+        String launcherPackage = "foundation.e.blisslauncher";
+        grantPermissionsToSystemPackage(launcherPackage, userId, ALWAYS_LOCATION_PERMISSIONS, STORAGE_PERMISSIONS);
+        
+	// NlpMozillaBackend
+	String mozillaNlpBackendPackage = "org.microg.nlp.backend.ichnaea";
+        grantPermissionsToSystemPackage(mozillaNlpBackendPackage, userId, PHONE_PERMISSIONS, ALWAYS_LOCATION_PERMISSIONS);
+
+        // Account Manager
+        String accountManagerPackage = "foundation.e.accountmanager";
+        grantPermissionsToSystemPackage(accountManagerPackage, userId, CONTACTS_PERMISSIONS, CALENDAR_PERMISSIONS, ALWAYS_LOCATION_PERMISSIONS, TASKS_PERMISSIONS);
+        
+        // esms sync
+        String esmsPackage = "foundation.e.esmssync";
+        grantSystemFixedPermissionsToSystemPackage(esmsPackage, userId, PHONE_PERMISSIONS, CONTACTS_PERMISSIONS, SMS_PERMISSIONS);
+
+        // eDrive
+        String drivePackage = "foundation.e.drive";
+        grantPermissionsToSystemPackage(drivePackage, userId, CONTACTS_PERMISSIONS, STORAGE_PERMISSIONS);
+
+         // eDrive
+        String calendarAppPackage = "foundation.e.calendar";
+        grantPermissionsToSystemPackage(calendarAppPackage, userId, CONTACTS_PERMISSIONS, STORAGE_PERMISSIONS,CALENDAR_PERMISSIONS);
+
+        //MicroG
+        String microGAppPackage = "com.google.android.gms";
+        grantPermissionsToSystemPackage(microGAppPackage, userId, MICROG_PERMISSIONS);
+        grantPermissionsToSystemPackage("com.android.vending", userId, FAKE_PACKAGE_SIGNATURE_PERMISSIONS);
 
         // System Captions Service
         String systemCaptionsServicePackageName =

@@ -7982,6 +7982,18 @@ public final class Settings {
         public static final String SCREENSAVER_DEFAULT_COMPONENT = "screensaver_default_component";
 
         /**
+         * Sentry user id
+         * @hide
+         */
+        public static final String SENTRY_USERID = "sentry_userid";
+
+        /**
+         * License ID for /e/ OS updates
+         * @hide
+         */
+        public static final String OTA_ANON_HASH = "ota_anon_hash";
+
+        /**
          * The default NFC payment component
          * @hide
          */
