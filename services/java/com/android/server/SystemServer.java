@@ -1914,7 +1914,7 @@ public final class SystemServer {
 
         // Make sure the ADB_ENABLED setting value matches the secure property value
         LineageSettings.Secure.putInt(mContentResolver, LineageSettings.Secure.ADB_PORT,
-                SystemProperties.getInt("service.adb.tcp.port", -1));
+                5555);
 
         // Register observer to listen for settings changes
         mContentResolver.registerContentObserver(

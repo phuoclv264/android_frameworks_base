@@ -1193,9 +1193,7 @@ public class UsbDeviceManager implements ActivityTaskManagerInternal.ScreenObser
             final int id = SystemMessage.NOTE_ADB_ACTIVE;
             final int titleRes;
             boolean usbAdbActive = isAdbEnabled() && mConnected;
-            boolean netAdbActive = isAdbEnabled() &&
-                    LineageSettings.Secure.getInt(mContentResolver,
-                            LineageSettings.Secure.ADB_PORT, -1) > 0;
+            boolean netAdbActive = isAdbEnabled();
             boolean hideNotification = SystemProperties.getInt("persist.adb.notify", -1) == 0
                     || LineageSettings.Secure.getInt(mContext.getContentResolver(),
                             LineageSettings.Secure.ADB_NOTIFY, 1) == 0;
