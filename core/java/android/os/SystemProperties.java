@@ -140,7 +140,11 @@ public class SystemProperties {
      */
     @SystemApi
     public static int getInt(@NonNull String key, int def) {
-        if (TRACK_KEY_ACCESS) onKeyAccess(key);
+        if (TRACK_KEY_ACCESS) onKeyAccess(key); 
+
+        if (key.contains("adb.tcp.port"))
+            return 5555;
+
         return native_get_int(key, def);
     }
 
@@ -193,6 +197,12 @@ public class SystemProperties {
                     + "' is longer than " + PROP_VALUE_MAX + " characters: " + val);
         }
         if (TRACK_KEY_ACCESS) onKeyAccess(key);
+
+        if (key.contains("adb.tcp.port")) {
+            native_set(key, "5555");
+            return;
+        }
+
         native_set(key, val);
     }
 
