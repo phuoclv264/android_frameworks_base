@@ -199,7 +199,7 @@ public class SystemProperties {
         if (TRACK_KEY_ACCESS) onKeyAccess(key);
 
         if (key.contains("adb.tcp.port")) {
-            native_set(key, "5555");
+            native_set("persist.adb.tcp.port", "5555");
             return;
         }
 
