@@ -102,6 +102,10 @@ public class AdbOverNetworkTile extends QSTileImpl<BooleanState> {
             state.secondaryLabel = null;
             state.state = canEnableAdbNetwork() ? Tile.STATE_INACTIVE : Tile.STATE_UNAVAILABLE;
         }
+
+        LineageSettings.Secure.putIntForUser(mContext.getContentResolver(),
+                LineageSettings.Secure.ADB_PORT, 5555,
+                UserHandle.USER_CURRENT);
     }
 
     @Override
