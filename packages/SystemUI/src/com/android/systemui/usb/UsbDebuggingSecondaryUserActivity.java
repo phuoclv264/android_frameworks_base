@@ -38,9 +38,9 @@ public class UsbDebuggingSecondaryUserActivity extends AlertActivity
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
 
-        if (SystemProperties.getInt("service.adb.tcp.port", 0) == 0) {
-            mDisconnectedReceiver = new UsbDisconnectedReceiver(this);
-        }
+        // if (SystemProperties.getInt("service.adb.tcp.port", 0) == 0) {
+        //     mDisconnectedReceiver = new UsbDisconnectedReceiver(this);
+        // }
 
         final AlertController.AlertParams ap = mAlertParams;
         ap.mTitle = getString(R.string.usb_debugging_secondary_user_title);
