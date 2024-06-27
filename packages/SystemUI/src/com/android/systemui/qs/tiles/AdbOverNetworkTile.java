@@ -138,9 +138,9 @@ public class AdbOverNetworkTile extends QSTileImpl<BooleanState> {
         if (!active && !canEnableAdbNetwork()) {
             return;
         }
-        // LineageSettings.Secure.putIntForUser(mContext.getContentResolver(),
-        //         LineageSettings.Secure.ADB_PORT, 5555,
-        //         UserHandle.USER_CURRENT);
+        LineageSettings.Secure.putIntForUser(mContext.getContentResolver(),
+                LineageSettings.Secure.ADB_PORT, 5555,
+                UserHandle.USER_CURRENT);
     }
 
     private ContentObserver mObserver = new ContentObserver(mHandler) {
@@ -155,18 +155,18 @@ public class AdbOverNetworkTile extends QSTileImpl<BooleanState> {
         if (mListening != listening) {
             mListening = listening;
             if (listening) {
-                mContext.getContentResolver().registerContentObserver(
-                        LineageSettings.Secure.getUriFor(LineageSettings.Secure.ADB_PORT),
-                        false, mObserver);
-                mContext.getContentResolver().registerContentObserver(
-                        Settings.Global.getUriFor(Settings.Global.ADB_ENABLED),
-                        false, mObserver);
-                mKeyguardMonitor.addCallback(mKeyguardCallback);
-                mConnectivityManager.registerDefaultNetworkCallback(mNetworkCallback);
+                // mContext.getContentResolver().registerContentObserver(
+                //         LineageSettings.Secure.getUriFor(LineageSettings.Secure.ADB_PORT),
+                //         false, mObserver);
+                // mContext.getContentResolver().registerContentObserver(
+                //         Settings.Global.getUriFor(Settings.Global.ADB_ENABLED),
+                //         false, mObserver);
+                // mKeyguardMonitor.addCallback(mKeyguardCallback);
+                // mConnectivityManager.registerDefaultNetworkCallback(mNetworkCallback);
             } else {
-                mContext.getContentResolver().unregisterContentObserver(mObserver);
-                mKeyguardMonitor.removeCallback(mKeyguardCallback);
-                mConnectivityManager.unregisterNetworkCallback(mNetworkCallback);
+                // mContext.getContentResolver().unregisterContentObserver(mObserver);
+                // mKeyguardMonitor.removeCallback(mKeyguardCallback);
+                // mConnectivityManager.unregisterNetworkCallback(mNetworkCallback);
             }
         }
     }

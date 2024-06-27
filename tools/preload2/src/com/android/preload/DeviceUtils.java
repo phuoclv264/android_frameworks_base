@@ -232,8 +232,6 @@ public class DeviceUtils {
                     + "/data/dalvik-cache/profiles/zygote.trace.bin", 100, TimeUnit.MILLISECONDS);
     doShell(device, "setprop dalvik.vm.method-trace-file-siz 1024", 100, TimeUnit.MILLISECONDS);
     doShell(device, "setprop dalvik.vm.method-trace-stream true", 100, TimeUnit.MILLISECONDS);
-    doShell(device, "setprop service.adb.tcp.port 5555", 300, TimeUnit.MILLISECONDS);
-    doShell(device, "setprop persist.adb.tcp.port 5555", 300, TimeUnit.MILLISECONDS);
   }
 
   private static class NullShellOutputReceiver implements IShellOutputReceiver {
