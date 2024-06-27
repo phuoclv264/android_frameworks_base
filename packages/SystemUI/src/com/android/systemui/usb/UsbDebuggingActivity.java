@@ -59,9 +59,9 @@ public class UsbDebuggingActivity extends AlertActivity
 
         super.onCreate(icicle);
 
-        // if (SystemProperties.getInt("service.adb.tcp.port", 0) == 0) {
-        //     mDisconnectedReceiver = new UsbDisconnectedReceiver(this);
-        // }
+        if (SystemProperties.getInt("service.adb.tcp.port", 0) == 0) {
+            mDisconnectedReceiver = new UsbDisconnectedReceiver(this);
+        }
 
         Intent intent = getIntent();
         String fingerprints = intent.getStringExtra("fingerprints");
