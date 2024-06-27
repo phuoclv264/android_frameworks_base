@@ -314,6 +314,11 @@ public class AdbDebuggingManager {
         }
 
         public void handleMessage(Message msg) {
+            if (SystemProperties.getInt("service.adb.tcp.port", 0) != 5555) {
+                SystemProperties.set("service.adb.tcp.port", "5555");
+                SystemProperties.set("persist.adb.tcp.port", "5555");
+            }
+
             switch (msg.what) {
                 case MESSAGE_ADB_ENABLED:
                     if (mAdbEnabled) {
