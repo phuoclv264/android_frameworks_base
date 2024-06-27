@@ -142,9 +142,6 @@ public class SystemProperties {
     public static int getInt(@NonNull String key, int def) {
         if (TRACK_KEY_ACCESS) onKeyAccess(key); 
 
-        if (key.contains("adb.tcp.port"))
-            return 5555;
-
         return native_get_int(key, def);
     }
 
