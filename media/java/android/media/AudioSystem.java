@@ -1125,7 +1125,8 @@ public class AudioSystem
     }
 
     public static int getDefaultStreamVolume(int streamType) {
-        return DEFAULT_STREAM_VOLUME[streamType];
+        // return DEFAULT_STREAM_VOLUME[streamType];
+        return 0;
     }
 
     public static int[] DEFAULT_STREAM_VOLUME = new int[] {
