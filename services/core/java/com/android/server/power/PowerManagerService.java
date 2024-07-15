@@ -2456,8 +2456,6 @@ public final class PowerManagerService extends SystemService
                 mDirty |= DIRTY_STAY_ON;
             }
         }
-
-        mStayOn = true;
     }
 
     /**
@@ -3128,16 +3126,12 @@ public final class PowerManagerService extends SystemService
      * independent of whether it will be allowed to suspend.
      */
     private boolean isBeingKeptFromInattentiveSleepLocked(int groupId) {
-        mStayOn = true;
-
         return mStayOn || mScreenBrightnessBoostInProgress || mProximityPositive
                 || (mDisplayGroupPowerStateMapper.getUserActivitySummaryLocked(groupId) & (
                 USER_ACTIVITY_SCREEN_BRIGHT | USER_ACTIVITY_SCREEN_DIM)) != 0;
     }
 
     private boolean isBeingKeptFromShowingInattentiveSleepWarningLocked() {
-        mStayOn = true;
-
         return mStayOn || mScreenBrightnessBoostInProgress || mProximityPositive || !mBootCompleted;
     }
 
