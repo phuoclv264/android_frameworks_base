@@ -188,6 +188,7 @@ public class EthernetManager {
 
     /**
      * Returns an array of available Ethernet interface names.
+     * @hide
      */
     @UnsupportedAppUsage(maxTargetSdk = Build.VERSION_CODES.R, trackingBug = 170729553)
     public String[] getAvailableInterfaces() {
