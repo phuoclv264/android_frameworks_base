@@ -189,8 +189,8 @@ public class EthernetManager {
     /**
      * Returns an array of available Ethernet interface names.
      */
-    @SuppressLint({"MissingNullability"})
     @UnsupportedAppUsage(maxTargetSdk = Build.VERSION_CODES.R, trackingBug = 170729553)
+    @Nullable
     public String[] getAvailableInterfaces() {
         try {
             return mService.getAvailableInterfaces();
