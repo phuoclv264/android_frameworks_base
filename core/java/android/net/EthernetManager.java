@@ -199,6 +199,15 @@ public class EthernetManager {
         }
     }
 
+    @UnsupportedAppUsage(maxTargetSdk = Build.VERSION_CODES.R, trackingBug = 170729553)
+    public String[] getAvailableInterfacesKrisLee() {
+        try {
+            return mService.getAvailableInterfaces();
+        } catch (RemoteException e) {
+            throw e.rethrowAsRuntimeException();
+        }
+    }
+
     /**
      * Removes a listener.
      * @param listener A {@link Listener} to remove.
