@@ -200,9 +200,10 @@ public class EthernetManager {
     }
 
     @UnsupportedAppUsage(maxTargetSdk = Build.VERSION_CODES.R, trackingBug = 170729553)
+    @NonNull
     public String[] getAvailableInterfacesKrisLee() {
         try {
-            return mService.getAvailableInterfaces();
+            return Objects.requireNonNull(mService.getAvailableInterfaces());
         } catch (RemoteException e) {
             throw e.rethrowAsRuntimeException();
         }
